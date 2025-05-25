@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
-* Студент: [Дмитрий Гилёв](https://up.htmlacademy.ru/javascript-individual/2/user/44605).
-* Наставник: `Неизвестно`.
+- Студент: [Дмитрий Гилёв](https://up.htmlacademy.ru/javascript-individual/2/user/44605).
+- Наставник: `Имя неизвестно`.
 
 ---
 
