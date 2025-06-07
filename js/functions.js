@@ -18,16 +18,27 @@ const isPalindrom = (string = '') => {
 isPalindrom('Топот');
 
 // Делаем строку положительным числом
+// Получаем какую-то строку. Неизвестно, число ли это, либо цифра
+// Переводим ее в строку через функцию string ?
+// Идем с первого до последнего элемента
+// Проверяем, цифра ли это
+// Если цифра, то записываем в новую строку эту цифру с помощью конкатенации
+// Если буква, переходим к новому элементу строки
+// Возвращаем новую строку цифр
 
-const makeStringNumber = (string = '') => {
-  let stringOfNumbers = 'Пустая строка';
-  for (let i = 0; i < string.length; i++) {
-    console.log(string[i]);
-    if (Number.isNaN(string[i])) {
-      stringOfNumbers += string[i];
+const extractNumbers = (string = '') => {
+  let numberString = ''; // Строка в которую буду записывать цифры
+  let str = string.toString(); // переводим в строчный формат, если вдруг у нас число
+
+  for (let i = 0; i < str.length; i++) {
+    if (!Number.isNaN(parseInt(str[i], 10))) {
+      numberString += str[i];
     }
   }
-  return stringOfNumbers;
+  if (numberString === '') {
+    console.log('Nan');
+    return NaN;
+  }
 };
 
-makeStringNumber('23rwesdv-1');
+extractNumbers('2q4-17.2');
