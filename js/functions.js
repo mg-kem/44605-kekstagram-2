@@ -36,9 +36,9 @@ const extractNumbers = (string = '') => {
     }
   }
   if (numberString === '') {
-    console.log('Nan');
     return NaN;
   }
+  return numberString;
 };
 
 extractNumbers('2q4-17.2');
