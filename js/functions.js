@@ -17,17 +17,20 @@ const isPalindrom = (string = '') => {
 
 isPalindrom('Топот');
 
-// Делаем строку положительным числом
+// Извлекаем числа из строки
+const extractNumbers = (string = '') => {
+  let numberString = ''; // Строка в которую буду записывать цифры
+  let str = string.toString(); // переводим в строчный формат, если вдруг у нас число
 
-const makeStringNumber = (string = '') => {
-  let stringOfNumbers = 'Пустая строка';
-  for (let i = 0; i < string.length; i++) {
-    console.log(string[i]);
-    if (Number.isNaN(string[i])) {
-      stringOfNumbers += string[i];
+  for (let i = 0; i < str.length; i++) {
+    if (!Number.isNaN(parseInt(str[i], 10))) {
+      numberString += str[i];
     }
   }
-  return stringOfNumbers;
+  if (numberString === '') {
+    return NaN;
+  }
+  return numberString;
 };
 
-makeStringNumber('23rwesdv-1');
+extractNumbers('2q4-17.2');
