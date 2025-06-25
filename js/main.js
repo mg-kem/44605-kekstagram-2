@@ -88,21 +88,26 @@ function createRandomIdFromRangeGenerator(min, max) {
 const generatePhotoId = createRandomIdFromRangeGenerator(1, 25);
 const generatePhotoUrl = createRandomIdFromRangeGenerator(1, 25);
 const generateAuthorId = createRandomIdFromRangeGenerator(1000, 10000);
-const generateAvatarUrl = createRandomIdFromRangeGenerator(
-  AVATAR_COUNT.min,
-  AVATAR_COUNT.max
-);
 
 // функция для получения случайного элемента массива
 const getRandomArrayElement = (elements) =>
   elements[getRandomInteger(0, elements.length - 1)];
 
+// функция для получения комментариев
 const createComment = () => ({
   id: generateAuthorId(100, 100000), // любое число. Идентификаторы не должны повторяться.
-  avatar: `img/avatar-${generateAvatarUrl()}.svg`, //строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg
+  avatar: `img/avatar-${getRandomInteger(
+    AVATAR_COUNT.min,
+    AVATAR_COUNT.max
+  )}.svg`, //строка, значение которой формируется по правилу img/avatar-{{случайное число от 1 до 6}}.svg
   message: getRandomArrayElement(MESSAGES),
   name: getRandomArrayElement(AUTHOR),
 });
+
+const createComments = Array.from(
+  { length: getRandomInteger(0, 30) },
+  createComment
+);
 
 // создаем объект
 const createObjectDescription = () => ({
@@ -110,12 +115,13 @@ const createObjectDescription = () => ({
   url: `photos/${generatePhotoUrl()}.jpg`, // строка — адрес картинки вида photos/{{i}}.jpg, где {{i}} — это число от 1 до 25. Адреса картинок не должны повторяться.
   description: getRandomArrayElement(DESCRIPTION), // строка — описание фотографии. Описание придумайте самостоятельно.
   likes: getRandomInteger(LIKES_COUNT.min, LIKES_COUNT.max), // число — количество лайков, поставленных фотографии. Случайное число от 15 до 200.
-  comments: createComment(), // массив объектов — список комментариев, оставленных другими пользователями к этой фотографии. Количество комментариев к каждой фотографии — случайное число от 0 до 30. Все комментарии генерируются случайным образом.
+  comments: createComments, // массив объектов — список комментариев, оставленных другими пользователями к этой фотографии. Количество комментариев к каждой фотографии — случайное число от 0 до 30. Все комментарии генерируются случайным образом.
 });
 
-// создание объектов ( фото )
+// создаю массив "Array.from" из объектов, созданных с помощью функции создания одного объекта  "createObjectDescription"
 const objectPhoto = Array.from(
-  { length: PHOTO_COUNT },
+  { length: PHOTO_COUNT }, // указываю длину массива (количество созданных объектов)
   createObjectDescription
 );
-console.log(objectPhoto);
+
+console.log(objectPhoto); // вывожу в консоль массив, одновременно вызывая функцию
