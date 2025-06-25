@@ -3,7 +3,7 @@
   напишите необходимые функции для создания массива из 25 сгенерированных объектов.
   Каждый объект массива — описание фотографии, опубликованной пользователем.
 */
-const PHOTO_COUNT = 1;
+const PHOTO_COUNT = 25;
 const LIKES_COUNT = { min: 15, max: 200 };
 const COMMENTS_COUNT = { min: 0, max: 30 };
 const AVATAR_COUNT = { min: 0, max: 6 };
@@ -104,10 +104,11 @@ const createComment = () => ({
   name: getRandomArrayElement(AUTHOR),
 });
 
-const createComments = Array.from(
-  { length: getRandomInteger(0, 30) },
-  createComment
-);
+const createComments = () =>
+  Array.from(
+    { length: getRandomInteger(COMMENTS_COUNT.min, COMMENTS_COUNT.max) },
+    createComment
+  );
 
 // создаем объект
 const createObjectDescription = () => ({
@@ -115,7 +116,7 @@ const createObjectDescription = () => ({
   url: `photos/${generatePhotoUrl()}.jpg`, // строка — адрес картинки вида photos/{{i}}.jpg, где {{i}} — это число от 1 до 25. Адреса картинок не должны повторяться.
   description: getRandomArrayElement(DESCRIPTION), // строка — описание фотографии. Описание придумайте самостоятельно.
   likes: getRandomInteger(LIKES_COUNT.min, LIKES_COUNT.max), // число — количество лайков, поставленных фотографии. Случайное число от 15 до 200.
-  comments: createComments, // массив объектов — список комментариев, оставленных другими пользователями к этой фотографии. Количество комментариев к каждой фотографии — случайное число от 0 до 30. Все комментарии генерируются случайным образом.
+  comments: createComments(), // массив объектов — список комментариев, оставленных другими пользователями к этой фотографии. Количество комментариев к каждой фотографии — случайное число от 0 до 30. Все комментарии генерируются случайным образом.
 });
 
 // создаю массив "Array.from" из объектов, созданных с помощью функции создания одного объекта  "createObjectDescription"
