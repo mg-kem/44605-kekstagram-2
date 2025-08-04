@@ -1,2 +1,2 @@
-import { objectPhoto } from './create-object-description.js';
-import './createPhotoUsers.js';
+// import { placeInsertImage } from './create-thumbnails-photo.js';
+import './create-full-photo.js';
