@@ -38,12 +38,18 @@ const openFullPhoto = (pictureId) => {
   const commentsObjectPhoto = currentPhoto.comments; // получаю массив комментариев
 
   socialCommentsNode.textContent = '';
-  const socialCommentNode = socialCommentTemplate.cloneNode(true);
 
 
-  // commentsObjectPhoto.forEach((comment) {
-  //   console.log(comment)
-  // });
+  const commentsFragment = document.createDocumentFragment();
+  commentsObjectPhoto.forEach((comment) => {
+    const socialCommentNode = socialCommentTemplate.cloneNode(true);
+
+    socialCommentNode.children[0].src = comment.avatar;
+    socialCommentNode.children[1].textContent = comment.message;
+    commentsFragment.append(socialCommentNode);
+  });
+  socialCommentsNode.append(commentsFragment);
+
 
   // socialCommentNode.children.src = commentsObjectPhoto.url;
   // commentsFragment.append(socialCommentNode);
