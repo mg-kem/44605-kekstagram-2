@@ -57,7 +57,7 @@ placeInsertImage.addEventListener('click', (evt) => {
 });
 
 // 3. Клик по крестику вызывает функцию закрытия большого изображения
-bigPictureCancelNode.addEventListener('click', (evt) => {
+bigPictureCancelNode.addEventListener('click', () => {
   closeFullPicture();
 });
 // 4. Нажатие на кнопку Escape на всем документе вызывает функцию закрытия большого изображения
