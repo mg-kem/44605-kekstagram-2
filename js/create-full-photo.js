@@ -13,16 +13,6 @@ const socialCommentsNode = bigPictureNode.querySelector('.social__comments'); //
 const socialCommentTemplate = socialCommentsNode.querySelector('.social__comment'); // берем в качестве шаблона li элемент
 const commentsLoaderButton = bigPictureNode.querySelector('.social__comments-loader'); // кнопка загрузки комментариев
 
-// 1. Вешаем обработчик на весь контейнер миниатюр
-placeInsertImage.addEventListener('click', (evt) => {
-  // Ловим клик на элементе с классом ".picture".
-  // evt.target.closest('.picture') - означает, что мы ловим клик в том числе на всех дочерних элементах, внутри этого класса
-  const currentPicture = evt.target.closest('.picture');
-  if (currentPicture) {
-    openFullPhoto(currentPicture.dataset.pictureId);
-  }
-});
-
 // 2. Функция открытия большого изображения
 const openFullPhoto = (pictureId) => {
   const currentPhoto = objectPhoto.find((photo) => photo.id === Number(pictureId)); // Поиск в массиве объектов элемента по условию отловленного на 1 шаге клика (picture-id)
@@ -50,6 +40,22 @@ const openFullPhoto = (pictureId) => {
   socialCommentsNode.append(commentsFragment); // Добавляю фрагмент целиком, содержащий все комментарии в список ul, который ранее обнулил(стр 40)
 };
 
+// 5. Функция закрытия большого изображения
+const closeFullPicture = () => {
+  bigPictureNode.classList.add('hidden');
+  document.querySelector('body').classList.remove('modal-open');
+};
+
+// 1. Вешаем обработчик на весь контейнер миниатюр
+placeInsertImage.addEventListener('click', (evt) => {
+  // Ловим клик на элементе с классом ".picture".
+  // evt.target.closest('.picture') - означает, что мы ловим клик в том числе на всех дочерних элементах, внутри этого класса
+  const currentPicture = evt.target.closest('.picture');
+  if (currentPicture) {
+    openFullPhoto(currentPicture.dataset.pictureId);
+  }
+});
+
 // 3. Клик по крестику вызывает функцию закрытия большого изображения
 bigPictureCancelNode.addEventListener('click', (evt) => {
   closeFullPicture();
@@ -60,8 +66,4 @@ document.addEventListener('keydown', (evt) => {
     closeFullPicture();
   }
 });
-// 5. Функция закрытия большого изображения
-const closeFullPicture = () => {
-  bigPictureNode.classList.add('hidden');
-  document.querySelector('body').classList.remove('modal-open');
-};
+

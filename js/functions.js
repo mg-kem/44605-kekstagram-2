@@ -20,7 +20,7 @@ isPalindrom('Топот');
 // Извлекаем числа из строки
 const extractNumbers = (string = '') => {
   let numberString = ''; // Строка в которую буду записывать цифры
-  let str = string.toString(); // переводим в строчный формат, если вдруг у нас число
+  const str = string.toString(); // переводим в строчный формат, если вдруг у нас число
 
   for (let i = 0; i < str.length; i++) {
     if (!Number.isNaN(parseInt(str[i], 10))) {
