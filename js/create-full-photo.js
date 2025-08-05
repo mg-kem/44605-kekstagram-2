@@ -66,4 +66,3 @@ document.addEventListener('keydown', (evt) => {
     closeFullPicture();
   }
 });
-
