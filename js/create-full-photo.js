@@ -56,7 +56,6 @@ const openFullPhoto = (pictureId) => {
   // 4. Нажатие на кнопку Escape на всем документе вызывает функцию закрытия большого изображения
   document.addEventListener('keydown', (evt) => {
     if (evt.key === 'Escape') {
-      console.log()
       closeFullPicture();
     }
   });
