@@ -2,7 +2,7 @@ const OBJECT_COUNT = 25;
 const PHOTO_COUNT = { min: 1, max: 25 };
 const LIKES_COUNT = { min: 15, max: 200 };
 const COMMENTS_COUNT = { min: 0, max: 30 };
-const AVATAR_COUNT = { min: 0, max: 6 };
+const AVATAR_COUNT = { min: 1, max: 6 };
 
 const DESCRIPTION = [
   'На Алтае',
