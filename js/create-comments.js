@@ -1,4 +1,4 @@
-import { getRandomInteger } from './get-random-element.js';
+import { getRandomInteger } from './get-random-number.js';
 import { getRandomArrayElement } from './get-random-array-element.js';
 import { createRandomIdFromRangeGenerator } from './create-random-id-from-range-generator.js';
 import { MESSAGES, AVATAR_COUNT, COMMENTS_COUNT, AUTHOR } from './data.js';

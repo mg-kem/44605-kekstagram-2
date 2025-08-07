@@ -1,4 +1,4 @@
-import { getRandomInteger } from './get-random-element.js';
+import { getRandomInteger } from './get-random-number.js';
 
 // функция создает уникальный  идентификатор из диапазона значений
 function createRandomIdFromRangeGenerator(min, max) {

@@ -1,5 +1,5 @@
 // Импортирую временные данные для отрисовки миниатюр
-import { objectPhoto } from './create-object-description.js';
+import { objectsPhoto } from './create-object.js';
 
 // Нахожу шаблон для отрисовки миниатюр
 const pictureTemplate = document
@@ -7,12 +7,12 @@ const pictureTemplate = document
   .content.querySelector('.picture');
 
 // Находим место, куда будем вставлять миниатюры
-const placeInsertImage = document.querySelector('.pictures');
+const placeInsertThumbnail = document.querySelector('.pictures');
 
 //создаем фрагмент для временной отрисовки в оперативной памяти
 const pictureFragment = document.createDocumentFragment();
 
-objectPhoto.forEach(({ id, url, description, likes, comments }) => {
+objectsPhoto.forEach(({ id, url, description, likes, comments }) => {
   const cloneTemplate = pictureTemplate.cloneNode(true);
 
   cloneTemplate.dataset.pictureId = id;
@@ -25,6 +25,6 @@ objectPhoto.forEach(({ id, url, description, likes, comments }) => {
   pictureFragment.append(cloneTemplate);
 });
 
-placeInsertImage.append(pictureFragment);
+placeInsertThumbnail.append(pictureFragment);
 
-export { placeInsertImage };
+export { placeInsertThumbnail };
