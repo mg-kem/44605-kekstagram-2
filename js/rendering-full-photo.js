@@ -8,26 +8,26 @@ const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelecto
 const likesCount = bigPicture.querySelector('.likes-count'); // количество лайков
 const commentsCaption = bigPicture.querySelector('.social__caption'); // блок с описанием
 
-const buttonCloseFullPicture = (evt) => {
+const onClickBtnClose = (evt) => {
   evt.preventDefault();
   closeFullPicture();
 };
 
-const escKeydown = (evt) => {
+const onClickEscape = (evt) => {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     closeFullPicture();
   }
 };
 
-const closeFullPicture = () => {
+function closeFullPicture() {
   clearComments();
 
   bigPicture.classList.add('hidden');
-  document.querySelector('body').classList.remove('modal-open');
-  bigPictureCancelButton.removeEventListener('click', buttonCloseFullPicture);
-  document.removeEventListener('keydown', escKeydown);
-};
+  document.body.classList.remove('modal-open');
+  bigPictureCancelButton.removeEventListener('click', onClickBtnClose);
+  document.removeEventListener('keydown', onClickEscape);
+}
 
 // Функция открытия большого изображения
 const openFullPhoto = (pictureId) => {
@@ -40,9 +40,9 @@ const openFullPhoto = (pictureId) => {
   renderComments(currentPhoto.comments);
 
   bigPicture.classList.remove('hidden'); // скрываю класс, чтобы отобразить full photo
-  document.querySelector('body').classList.add('modal-open'); // Добавляем класс для всего документа, чтобы убрать прокрутку
-  bigPictureCancelButton.addEventListener('click', buttonCloseFullPicture); // Клик по крестику вызывает функцию закрытия большого изображения
-  document.addEventListener('keydown', escKeydown); // Нажатие на кнопку Escape на всем документе вызывает функцию закрытия большого изображения
+  document.body.classList.add('modal-open'); // Добавляем класс для всего документа, чтобы убрать прокрутку
+  bigPictureCancelButton.addEventListener('click', onClickBtnClose); // Клик по крестику вызывает функцию закрытия большого изображения
+  document.addEventListener('keydown', onClickEscape); // Нажатие на кнопку Escape на всем документе вызывает функцию закрытия большого изображения
 };
 
 // Вешаем обработчик на весь контейнер миниатюр
