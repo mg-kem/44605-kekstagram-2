@@ -1,6 +1,6 @@
 import { createRandomIdFromRangeGenerator } from './create-random-id-from-range-generator.js';
 import { getRandomArrayElement } from './get-random-array-element.js';
-import { getRandomInteger } from './get-random-element.js';
+import { getRandomInteger } from './get-random-number.js';
 import { createComments } from './create-comments.js';
 import { DESCRIPTION, LIKES_COUNT, OBJECT_COUNT, PHOTO_COUNT } from './data.js';
 
@@ -23,9 +23,9 @@ const createObjectDescription = () => ({
 });
 
 // создаю массив "Array.from" из объектов, созданных с помощью функции создания одного объекта  "createObjectDescription"
-const objectPhoto = Array.from(
+const objectsPhoto = Array.from(
   { length: OBJECT_COUNT }, // указываю длину массива (количество созданных объектов)
   createObjectDescription
 );
 
-export { objectPhoto };
+export { objectsPhoto };

@@ -1,4 +1,4 @@
-import { getRandomInteger } from './get-random-element.js';
+import { getRandomInteger } from './get-random-number.js';
 
 // функция для получения случайного элемента массива
 const getRandomArrayElement = (elements) =>
