@@ -8,9 +8,8 @@ const commentArea = document.querySelector('.text__description');
 const onClickBtnClose = () => closeWindowEditor();
 const onClickEscape = (evt) => {
   if (evt.key === 'Escape') {
-
-    if (document.activeElement === hashtagInput && document.activeElement === commentArea) {
-      evt.preventDefault();
+    if (document.activeElement === hashtagInput || document.activeElement === commentArea) {
+      evt.stopPropagation();
     }
     closeWindowEditor();
   }
@@ -38,21 +37,42 @@ const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--error',
   errorTextParent: 'img-upload__field-wrapper',
-  // errorTextTag: 'span',
-  // errorTextClass: 'text-help'
 });
 
-function isValidHashtag(value) {
-  const regularString = /^#[a-zа-яё0-9]{1,19}$/i.test(value); // регулярное выражение
-  // console.log(regularString, value);
-  return regularString;
-}
-
+// проверка длины комментария
+pristine.addValidator(commentArea, isValidCommentArea, 'Длина комментария должна быть не более 140 символов');
 function isValidCommentArea(value) {
   const commentLength = value.length <= 140; // регулярное выражение
   // console.log(regularString, value);
   return commentLength;
 }
+// проверка на количество хэштегов (не больше 5)
+pristine.addValidator(hashtagInput, (value) => {
+  const arrayInputHashtag = value.split(/\s+/);
+  return arrayInputHashtag.length <= 5;
+}, 'Количество хэштегов не больше 5 !');
 
-pristine.addValidator(hashtagInput, isValidHashtag, 'Ошибка');
-pristine.addValidator(commentArea, isValidCommentArea, 'Длина комментария должна быть не более 140 символов');
+// проверка на первый символ хэштега
+pristine.addValidator(hashtagInput, (value) => {
+  const inputText = value.toLowerCase().trim();
+  console.log(inputText);
+  if (!inputText) {
+    return true;
+  }
+  const arrayInputText = value.split('');
+  if (arrayInputText[0] === '#') {
+    return true;
+  }
+}, 'Хэштег должен начинаться с #');
+
+pristine.addValidator(hashtagInput, (value) => {
+  const inputText = value.toLowerCase().trim();
+  if (inputText.length <= 20) {
+    return inputText;
+  }
+}, 'Длина хэштега должна быть не больше 20 символов');
+
+
+//const regularString = /^#[a-zа-яё0-9]{1,19}$/i.test(value); // регулярное выражение
+
+
