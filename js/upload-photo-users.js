@@ -53,34 +53,39 @@ function isValidCommentArea(value) {
 
 pristine.addValidator(commentArea, isValidCommentArea, 'Длина комментария должна быть не более 140 символов');
 
+function isArrayUnique(arr) {
+  return new Set(arr).size === arr.length;
+}
 // проверка хэштегов
 function isValidHashTag(value) {
-  const regularString = /^#[a-zа-яё0-9]{1,19}$/; // регулярное выражение
+  const regularString = /^#[a-zа-яё0-9]{0,19}$/; // регулярное выражение
   const hashtags = value.split(/\s+/); // Сохраняю массив хэштегов
   const inputText = value.toLowerCase().trim();
-
   if (inputText.length === 0) {
     return true;
   }
   console.log(hashtags);
-
   if (hashtags.length > 5) {
     errorMessage = 'quantity';
+    console.log('errorMessage: ' + errorMessage);
+    return false;
+  }
+  if (!isArrayUnique(hashtags)) {
+    errorMessage = 'unique';
     return false;
   }
   for (const hashtag of hashtags) {
-
-
     if (hashtag[0] !== '#') {
       errorMessage = 'grid';
+      console.log('errorMessage: ' + errorMessage);
       return false;
-    }
-    if (hashtag.length < 1 || hashtag.length > 20) {
+    } else if (hashtag.length < 2 || hashtag.length > 20) {
       errorMessage = 'length';
+      console.log('errorMessage: ' + errorMessage);
       return false;
-    }
-    if (!regularString.test(hashtag)) {
+    } else if (!regularString.test(hashtag)) {
       errorMessage = 'regex';
+      console.log('errorMessage: ' + errorMessage);
       return false;
     }
   }
@@ -92,6 +97,7 @@ function getErrorMessage() {
     case 'length': return 'Размер хэштега от 1 до 20 символов';
     case 'quantity': return 'Количество хэштегов не больше 5';
     case 'grid': return 'Хэштег должен начинаться с символа #';
+    case 'unique': return 'Хэштеги не должны повторяться'
     case 'regex': return 'Хэштег не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;';
   }
 }
