@@ -4,6 +4,10 @@ const uploadFileEditorResetBtn = uploadFileEditor.querySelector('.img-upload__ca
 const uploadFileControl = document.querySelector('#upload-file'); // input
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentArea = document.querySelector('.text__description');
+uploadFileEditor.classList.remove('hidden'); // убрать
+
+let errorMessage = '';
+
 
 const onClickBtnClose = () => closeWindowEditor();
 const onClickEscape = (evt) => {
@@ -24,6 +28,7 @@ function closeWindowEditor() {
   hashtagInput.value = '';
   commentArea.value = '';
 }
+
 // При изменении состояния инпута (загружаем фото) происходят события внутри функции
 uploadFileControl.addEventListener('change', () => {
   uploadFileEditor.classList.remove('hidden');
@@ -40,39 +45,71 @@ const pristine = new Pristine(uploadForm, {
 });
 
 // проверка длины комментария
-pristine.addValidator(commentArea, isValidCommentArea, 'Длина комментария должна быть не более 140 символов');
 function isValidCommentArea(value) {
   const commentLength = value.length <= 140; // регулярное выражение
   // console.log(regularString, value);
   return commentLength;
 }
-// проверка на количество хэштегов (не больше 5)
-pristine.addValidator(hashtagInput, (value) => {
-  const arrayInputHashtag = value.split(/\s+/);
-  return arrayInputHashtag.length <= 5;
-}, 'Количество хэштегов не больше 5 !');
 
-// проверка на первый символ хэштега
-pristine.addValidator(hashtagInput, (value) => {
+pristine.addValidator(commentArea, isValidCommentArea, 'Длина комментария должна быть не более 140 символов');
+
+// проверка хэштегов
+function isValidHashTag(value) {
+  const regularString = /^#[a-zа-яё0-9]{1,19}$/; // регулярное выражение
+  const hashtags = value.split(/\s+/); // Сохраняю массив хэштегов
   const inputText = value.toLowerCase().trim();
-  console.log(inputText);
-  if (!inputText) {
+
+  if (inputText.length === 0) {
     return true;
   }
-  const arrayInputText = value.split('');
-  if (arrayInputText[0] === '#') {
-    return true;
+  console.log(hashtags);
+
+  if (hashtags.length > 5) {
+    errorMessage = 'quantity';
+    return false;
   }
-}, 'Хэштег должен начинаться с #');
+  for (const hashtag of hashtags) {
 
-pristine.addValidator(hashtagInput, (value) => {
-  const inputText = value.toLowerCase().trim();
-  if (inputText.length <= 20) {
-    return inputText;
+
+    if (hashtag[0] !== '#') {
+      errorMessage = 'grid';
+      return false;
+    }
+    if (hashtag.length < 1 && hashtag.length > 20) {
+      errorMessage = 'length';
+      return false;
+    }
+    if (!regularString.test(hashtag)) {
+      // console.log(egularString.test(hashtag));
+
+      errorMessage = 'regex';
+      return false;
+    }
   }
-}, 'Длина хэштега должна быть не больше 20 символов');
+  return true;
+}
+
+function getErrorMessage() {
+  switch (errorMessage) {
+    case 'length': return 'Размер хэштега от 1 до 20 символов';
+    case 'quantity': return 'Количество хэштегов не больше 5';
+    case 'grid': return 'Хэштег должен начинаться с символа #';
+    case 'regex': return 'Хэштег не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;';
+  }
+}
 
 
-//const regularString = /^#[a-zа-яё0-9]{1,19}$/i.test(value); // регулярное выражение
+pristine.addValidator(hashtagInput, isValidHashTag, getErrorMessage);
 
-
+// отправка формы
+uploadForm.addEventListener('submit', (evt) => {
+  evt.preventDefault();
+  const isValid = pristine.validate();
+  if (isValid) {
+    // console.log('Можно отправлять');
+    uploadForm.submit();
+    // } else {
+    //   console.log('Форма невалидна');
+    //   alert('Форма невалидна');
+  }
+});
