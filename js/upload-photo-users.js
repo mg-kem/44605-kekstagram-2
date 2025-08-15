@@ -75,13 +75,11 @@ function isValidHashTag(value) {
       errorMessage = 'grid';
       return false;
     }
-    if (hashtag.length < 1 && hashtag.length > 20) {
+    if (hashtag.length < 1 || hashtag.length > 20) {
       errorMessage = 'length';
       return false;
     }
     if (!regularString.test(hashtag)) {
-      // console.log(egularString.test(hashtag));
-
       errorMessage = 'regex';
       return false;
     }
