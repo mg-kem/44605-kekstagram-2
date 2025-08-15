@@ -58,16 +58,14 @@ function isArrayUnique(arr) {
 }
 // проверка хэштегов
 function isValidHashTag(value) {
-  const regularString = /^#[a-zа-яё0-9]{0,19}$/; // регулярное выражение
+  const regularString = /^#[a-zа-яё0-9]{0,19}$/i; // регулярное выражение
   const hashtags = value.split(/\s+/); // Сохраняю массив хэштегов
   const inputText = value.toLowerCase().trim();
   if (inputText.length === 0) {
     return true;
   }
-  console.log(hashtags);
   if (hashtags.length > 5) {
     errorMessage = 'quantity';
-    console.log('errorMessage: ' + errorMessage);
     return false;
   }
   if (!isArrayUnique(hashtags)) {
@@ -77,15 +75,12 @@ function isValidHashTag(value) {
   for (const hashtag of hashtags) {
     if (hashtag[0] !== '#') {
       errorMessage = 'grid';
-      console.log('errorMessage: ' + errorMessage);
       return false;
     } else if (hashtag.length < 2 || hashtag.length > 20) {
       errorMessage = 'length';
-      console.log('errorMessage: ' + errorMessage);
       return false;
     } else if (!regularString.test(hashtag)) {
       errorMessage = 'regex';
-      console.log('errorMessage: ' + errorMessage);
       return false;
     }
   }
@@ -97,11 +92,10 @@ function getErrorMessage() {
     case 'length': return 'Размер хэштега от 1 до 20 символов';
     case 'quantity': return 'Количество хэштегов не больше 5';
     case 'grid': return 'Хэштег должен начинаться с символа #';
-    case 'unique': return 'Хэштеги не должны повторяться'
+    case 'unique': return 'Хэштеги не должны повторяться';
     case 'regex': return 'Хэштег не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;';
   }
 }
-
 
 pristine.addValidator(hashtagInput, isValidHashTag, getErrorMessage);
 
@@ -110,10 +104,6 @@ uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {
-    // console.log('Можно отправлять');
     uploadForm.submit();
-    // } else {
-    //   console.log('Форма невалидна');
-    //   alert('Форма невалидна');
   }
 });
