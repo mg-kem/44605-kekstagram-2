@@ -4,7 +4,7 @@ const uploadFileEditorResetBtn = uploadFileEditor.querySelector('.img-upload__ca
 const uploadFileControl = document.querySelector('#upload-file'); // input
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentArea = document.querySelector('.text__description');
-uploadFileEditor.classList.remove('hidden'); // убрать
+
 
 let errorMessage = '';
 
