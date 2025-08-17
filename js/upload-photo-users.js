@@ -4,6 +4,7 @@ const uploadFileEditorResetBtn = uploadFileEditor.querySelector('.img-upload__ca
 const uploadFileControl = document.querySelector('#upload-file'); // input
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentArea = document.querySelector('.text__description');
+// const submitButton = document.querySelector('#upload-submit');
 
 let errorMessage = '';
 
@@ -96,17 +97,22 @@ function getErrorMessage() {
 pristine.addValidator(hashtagInput, isValidHashTag, getErrorMessage);
 
 // отправка формы
+
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
+
   const isValid = pristine.validate();
   if (isValid) {
-    const formData = new FormData(evt.target);
+    const bodyForm = new FormData();
+    console.log(bodyForm);
+
     fetch('https://31.javascript.htmlacademy.pro/kekstagram',
       {
         method: 'POST',
-        body: formData,
+        body: bodyForm,
       },
-    );
-    // uploadForm.submit();
+    ).then(() => console.log(response));
   }
 });
+
+
