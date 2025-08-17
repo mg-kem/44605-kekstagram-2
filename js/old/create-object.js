@@ -1,8 +1,8 @@
-import { createRandomIdFromRangeGenerator } from './create-random-id-from-range-generator.js';
-import { getRandomArrayElement } from './get-random-array-element.js';
-import { getRandomInteger } from './get-random-number.js';
-import { createComments } from './create-comments.js';
-import { DESCRIPTION, LIKES_COUNT, OBJECT_COUNT, PHOTO_COUNT } from './data.js';
+import { createRandomIdFromRangeGenerator } from '../create-random-id-from-range-generator.js';
+import { getRandomArrayElement } from '../get-random-array-element.js';
+import { getRandomInteger } from '../get-random-number.js';
+import { createComments } from '../create-comments.js';
+import { DESCRIPTION, LIKES_COUNT, OBJECT_COUNT, PHOTO_COUNT } from '../data.js';
 
 const generatePhotoId = createRandomIdFromRangeGenerator(
   PHOTO_COUNT.min,

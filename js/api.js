@@ -1,15 +1,20 @@
-const BASE_URL = 'https://31.javascript.htmlacadem.pro/kekstagram';
+const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
+
 const Route = {
   GET: '/data',
   SEND: '/',
 };
-const Method = {
-  GET: 'GET',
-  POST: 'POST',
-};
-const ErrorText = {
-  [Method.GET]: 'Не удалось загрузить данные. Попробуйте еще раз',
-  [Method.POST]: 'Не удалось отправить данные формы',
+
+const errorShowMessage = () => {
+  const messageTemplate = document
+    .querySelector('#data-error')
+    .content.querySelector('.data-error');
+
+  document.body.insertAdjacentElement('beforeEnd', messageTemplate);
+
+  setTimeout(() => {
+    document.querySelector('.data-error').remove();
+  }, 5000);
 };
 
 // получение данных
@@ -20,28 +25,8 @@ const getData = (onSuccess) => {
       onSuccess(objectsPhoto);
     })
     .catch(() => {
-      alert('Не удалось загрузить данные. Попробуйте еще раз');
+      errorShowMessage();
     });
 };
-
-// // отправка данных
-// const sendData = (onSuccess, onFail, body) => {
-//   fetch('https://31.javascript.htmlacademy.pro/kekstagram/',
-//     {
-//       method: 'POST',
-//       body: body,
-//     },
-//   )
-//     .then((response) => {
-//       if (response.ok) {
-//         onSuccess();
-//       } else {
-//         onFail('Не удалось отправить форму. Попробуйте еще раз');
-//       }
-//     })
-//     .catch(() => {
-//       onFail('Не удалось отправить форму. Попробуйте еще раз');
-//     });
-// };
 
 export { getData };
