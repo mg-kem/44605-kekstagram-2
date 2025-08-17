@@ -1,5 +1,4 @@
-// Импортирую временные данные для отрисовки миниатюр
-import { objectsPhoto } from './create-object.js';
+import { openFullPhoto } from './rendering-full-photo';
 
 // Нахожу шаблон для отрисовки миниатюр
 const pictureTemplate = document
@@ -12,19 +11,24 @@ const placeInsertThumbnail = document.querySelector('.pictures');
 //создаем фрагмент для временной отрисовки в оперативной памяти
 const pictureFragment = document.createDocumentFragment();
 
-objectsPhoto.forEach(({ id, url, description, likes, comments }) => {
-  const cloneTemplate = pictureTemplate.cloneNode(true);
+const renderObjectPhoto = (objectsPhoto) => {
+  objectsPhoto.forEach((objectPhoto) => {
+    const cloneTemplate = pictureTemplate.cloneNode(true);
 
-  cloneTemplate.dataset.pictureId = id;
-  cloneTemplate.children[0].src = url;
-  cloneTemplate.children[0].alt = description;
-  cloneTemplate.querySelector('.picture__likes').textContent = likes;
-  cloneTemplate.querySelector('.picture__comments').textContent =
-    comments.length;
+    cloneTemplate.dataset.pictureId = objectPhoto.id;
+    cloneTemplate.children[0].src = objectPhoto.url;
+    cloneTemplate.children[0].alt = objectPhoto.description;
+    cloneTemplate.querySelector('.picture__likes').textContent = objectPhoto.likes;
+    cloneTemplate.querySelector('.picture__comments').textContent = objectPhoto.comments.length;
 
-  pictureFragment.append(cloneTemplate);
-});
+    cloneTemplate.addEventListener('click', () => {
+      openFullPhoto(objectPhoto);
+    });
 
-placeInsertThumbnail.append(pictureFragment);
+    pictureFragment.append(cloneTemplate);
+  });
 
-export { placeInsertThumbnail };
+  placeInsertThumbnail.append(pictureFragment);
+};
+
+export { renderObjectPhoto };

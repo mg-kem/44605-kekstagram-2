@@ -5,15 +5,13 @@ const uploadFileControl = document.querySelector('#upload-file'); // input
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentArea = document.querySelector('.text__description');
 
-
 let errorMessage = '';
-
 
 const onClickBtnClose = () => closeWindowEditor();
 const onClickEscape = (evt) => {
   if (evt.key === 'Escape') {
     if (document.activeElement === hashtagInput || document.activeElement === commentArea) {
-      evt.stopPropagation();
+      return;
     }
     closeWindowEditor();
   }
@@ -50,13 +48,12 @@ function isValidCommentArea(value) {
   // console.log(regularString, value);
   return commentLength;
 }
-
 pristine.addValidator(commentArea, isValidCommentArea, 'Длина комментария должна быть не более 140 символов');
 
+// проверка хэштегов
 function isArrayUnique(arr) {
   return new Set(arr).size === arr.length;
 }
-// проверка хэштегов
 function isValidHashTag(value) {
   const regularString = /^#[a-zа-яё0-9]{0,19}$/i; // регулярное выражение
   const hashtags = value.split(/\s+/); // Сохраняю массив хэштегов
@@ -96,7 +93,6 @@ function getErrorMessage() {
     case 'regex': return 'Хэштег не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи и т. д.;';
   }
 }
-
 pristine.addValidator(hashtagInput, isValidHashTag, getErrorMessage);
 
 // отправка формы
@@ -104,6 +100,13 @@ uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {
-    uploadForm.submit();
+    const formData = new FormData(evt.target);
+    fetch('https://31.javascript.htmlacademy.pro/kekstagram',
+      {
+        method: 'POST',
+        body: formData,
+      },
+    );
+    // uploadForm.submit();
   }
 });
