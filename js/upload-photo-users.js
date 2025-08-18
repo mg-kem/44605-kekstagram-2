@@ -1,10 +1,12 @@
+import { sendData } from './api';
+
 const uploadForm = document.querySelector('.img-upload__form');
 const uploadFileEditor = document.querySelector('.img-upload__overlay'); // window upload
 const uploadFileEditorResetBtn = uploadFileEditor.querySelector('.img-upload__cancel');
 const uploadFileControl = document.querySelector('#upload-file'); // input
 const hashtagInput = document.querySelector('.text__hashtags');
 const commentArea = document.querySelector('.text__description');
-// const submitButton = document.querySelector('#upload-submit');
+const imgUploadButton = document.querySelector('.img-upload__submit');
 
 let errorMessage = '';
 
@@ -23,6 +25,8 @@ function closeWindowEditor() {
   document.body.classList.remove('modal-open');
   uploadFileEditorResetBtn.removeEventListener('click', onClickBtnClose);
   document.removeEventListener('keydown', onClickEscape);
+  imgUploadButton.disabled = false;
+  imgUploadButton.textContent = 'Опубликоватьььььььь';
   uploadFileControl.value = '';
   hashtagInput.value = '';
   commentArea.value = '';
@@ -103,16 +107,10 @@ uploadForm.addEventListener('submit', (evt) => {
 
   const isValid = pristine.validate();
   if (isValid) {
-    const bodyForm = new FormData();
-    console.log(bodyForm);
+    const loadForm = new FormData(evt.target);
 
-    fetch('https://31.javascript.htmlacademy.pro/kekstagram',
-      {
-        method: 'POST',
-        body: bodyForm,
-      },
-    ).then(() => console.log(response));
+    imgUploadButton.disabled = true;
+    imgUploadButton.textContent = 'Публикую...';
+    sendData(closeWindowEditor, loadForm);
   }
 });
-
-

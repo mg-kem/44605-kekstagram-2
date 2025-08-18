@@ -5,16 +5,45 @@ const Route = {
   SEND: '/',
 };
 
-const errorShowMessage = () => {
-  const messageTemplate = document
+const showMessageErrorGetData = () => {
+  const messageError = document
     .querySelector('#data-error')
     .content.querySelector('.data-error');
 
-  document.body.insertAdjacentElement('beforeEnd', messageTemplate);
+  document.body.insertAdjacentElement('beforeEnd', messageError);
 
   setTimeout(() => {
     document.querySelector('.data-error').remove();
   }, 5000);
+};
+
+const showMessageErrorSendData = () => {
+  const messageError = document
+    .querySelector('#error')
+    .content.querySelector('.error');
+
+  const deleteMessage = () => {
+    document.querySelector('.error').remove();
+  };
+  document.body.insertAdjacentElement('beforeEnd', messageError);
+  document.addEventListener('click', deleteMessage());
+  document.addEventListener('keydown', (evt) => {
+    evt.preventDefault();
+    if (evt.key === 'Escape') {
+      deleteMessage();
+    }
+  });
+};
+
+const successMessage = () => {
+  const messageSuccess = document
+    .querySelector('#success')
+    .content.querySelector('.success');
+
+  document.body.insertAdjacentElement('beforeend', messageSuccess);
+  document.addEventListener('click', () => {
+    document.querySelector('.success').remove();
+  });
 };
 
 // получение данных
@@ -25,8 +54,24 @@ const getData = (onSuccess) => {
       onSuccess(objectsPhoto);
     })
     .catch(() => {
-      errorShowMessage();
+      showMessageErrorGetData();
     });
 };
 
-export { getData };
+const sendData = (onSuccess, body) => {
+  fetch(`${BASE_URL}${Route.SEND}`,
+    {
+      method: 'POST',
+      body: body
+    },
+  )
+    .then((response) => {
+      if (response.ok) {
+        onSuccess();
+        successMessage();
+      }
+    })
+    .catch(() => showMessageErrorSendData());
+};
+
+export { getData, sendData };
