@@ -17,22 +17,19 @@ const showMessageErrorGetData = () => {
   }, 5000);
 };
 
+const remove = (elem) => document.querySelector(`.${elem}`).remove();
+
 const showMessageErrorSendData = () => {
   const messageError = document
     .querySelector('#error')
     .content.querySelector('.error');
 
   document.body.insertAdjacentElement('beforeEnd', messageError);
-
-  const deleteMessage = () => {
-    document.querySelector('.error').remove();
-  };
-
-  document.addEventListener('click', deleteMessage());
+  document.addEventListener('click', remove('error'));
   document.addEventListener('keydown', (evt) => {
     evt.preventDefault();
     if (evt.key === 'Escape') {
-      deleteMessage();
+      remove('error');
     }
   });
 };
@@ -43,9 +40,7 @@ const successMessage = () => {
     .content.querySelector('.success');
 
   document.body.insertAdjacentElement('beforeEnd', messageSuccess);
-  document.addEventListener('click', () => {
-    document.querySelector('.success').remove();
-  });
+  document.addEventListener('click', () => remove('success'));
 };
 
 // получение данных
@@ -59,7 +54,7 @@ const getData = (onSuccess) => {
       showMessageErrorGetData();
     });
 };
-// загрузка данных
+// отправка данных
 const sendData = (onSuccess, body) => {
   fetch(`${BASE_URL}${Route.SEND}`,
     {
@@ -71,10 +66,11 @@ const sendData = (onSuccess, body) => {
       if (response.ok) {
         onSuccess();
         successMessage();
+      } else {
+        showMessageErrorSendData();
       }
     })
     .catch(() => {
-      onSuccess();
       showMessageErrorSendData(); // ???
     });
 };

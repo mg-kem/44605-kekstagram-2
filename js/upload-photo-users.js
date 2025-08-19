@@ -10,6 +10,7 @@ const hashtagInput = uploadFileEditor.querySelector('.text__hashtags'); // Input
 const commentArea = uploadFileEditor.querySelector('.text__description'); // Inpit ввода комментариев
 const imgUploadButton = uploadFileEditor.querySelector('.img-upload__submit'); // Кнопка отправки формы
 
+
 const onClickBtnClose = () => closeWindowEditor();
 
 const onClickEscape = (evt) => {
@@ -34,19 +35,16 @@ function closeWindowEditor() {
 }
 
 const uploadImage = () => {
-  const reader = new FileReader();
-  reader.onload = (evt) = {
-    // console.log(evt.target.result);
-    imgUploadPrewiev.src = evt.target.result;
-  };
-  imgUploadPrewiev.src = uploadFileControl.value;
+  const file = uploadFileControl.files[0];
+  imgUploadPrewiev.src = URL.createObjectURL(file);
+
   uploadFileEditor.classList.remove('hidden');
   document.body.classList.add('modal-open');
   uploadFileEditorResetBtn.addEventListener('click', onClickBtnClose);
   document.addEventListener('keydown', onClickEscape);
 };
 
-uploadFileControl.addEventListener('change', uploadImage);// При изменении состояния инпута (загружаем фото) происходят события внутри функции
+uploadFileControl.addEventListener('change', uploadImage);
 
 // отправка формы
 uploadForm.addEventListener('submit', (evt) => {
