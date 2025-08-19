@@ -1,14 +1,15 @@
 import { sendData } from './api';
 
-const uploadForm = document.querySelector('.img-upload__form');
-const uploadFileEditor = document.querySelector('.img-upload__overlay'); // window upload
-const uploadFileEditorResetBtn = uploadFileEditor.querySelector('.img-upload__cancel');
-const uploadFileControl = document.querySelector('#upload-file'); // input
-const hashtagInput = document.querySelector('.text__hashtags');
-const commentArea = document.querySelector('.text__description');
-const imgUploadButton = document.querySelector('.img-upload__submit');
+const uploadForm = document.querySelector('.img-upload__form'); // Форма отправки изображения
+const uploadFileEditor = document.querySelector('.img-upload__overlay'); // Окно редактирования изображения перед отправкой
+const uploadFileEditorResetBtn = uploadFileEditor.querySelector('.img-upload__cancel'); // Кнопка закрытия окна редактирования изображения
+const uploadFileControl = uploadForm.querySelector('.img-upload__input'); // input для загрузки изображения
+const imgUploadPrewiev = uploadFileEditor.querySelector('.img-upload__preview').querySelector('img'); // Предварительный просмотр изображения
+const hashtagInput = uploadFileEditor.querySelector('.text__hashtags'); // Input ввода хэштегов
+const commentArea = uploadFileEditor.querySelector('.text__description'); // Inpit ввода комментариев
+const imgUploadButton = uploadFileEditor.querySelector('.img-upload__submit'); // Кнопка отправки формы
 
-let errorMessage = '';
+let errorMessage = ''; // Строка для записи ошибки валидации
 
 const onClickBtnClose = () => closeWindowEditor();
 const onClickEscape = (evt) => {
@@ -26,19 +27,22 @@ function closeWindowEditor() {
   uploadFileEditorResetBtn.removeEventListener('click', onClickBtnClose);
   document.removeEventListener('keydown', onClickEscape);
   imgUploadButton.disabled = false;
-  imgUploadButton.textContent = 'Опубликоватьььььььь';
+  imgUploadButton.textContent = 'Опубликовать';
   uploadFileControl.value = '';
   hashtagInput.value = '';
   commentArea.value = '';
 }
 
-// При изменении состояния инпута (загружаем фото) происходят события внутри функции
-uploadFileControl.addEventListener('change', () => {
+const uploadImage = () => {
+  imgUploadPrewiev.src = uploadFileControl.value;
   uploadFileEditor.classList.remove('hidden');
   document.body.classList.add('modal-open');
   uploadFileEditorResetBtn.addEventListener('click', onClickBtnClose);
   document.addEventListener('keydown', onClickEscape);
-});
+};
+
+// При изменении состояния инпута (загружаем фото) происходят события внутри функции
+uploadFileControl.addEventListener('change', uploadImage);
 
 // Создаем PRISTINE и передаем переменную формы. Далее навешиваем на "форму"(pristine) валидацию
 const pristine = new Pristine(uploadForm, {
@@ -49,8 +53,7 @@ const pristine = new Pristine(uploadForm, {
 
 // проверка длины комментария
 function isValidCommentArea(value) {
-  const commentLength = value.length <= 140; // регулярное выражение
-  // console.log(regularString, value);
+  const commentLength = value.length <= 140;
   return commentLength;
 }
 pristine.addValidator(commentArea, isValidCommentArea, 'Длина комментария должна быть не более 140 символов');
@@ -99,9 +102,9 @@ function getErrorMessage() {
   }
 }
 pristine.addValidator(hashtagInput, isValidHashTag, getErrorMessage);
+//функция загрузки изображения
 
 // отправка формы
-
 uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 

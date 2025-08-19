@@ -22,10 +22,12 @@ const showMessageErrorSendData = () => {
     .querySelector('#error')
     .content.querySelector('.error');
 
+  document.body.insertAdjacentElement('beforeEnd', messageError);
+
   const deleteMessage = () => {
     document.querySelector('.error').remove();
   };
-  document.body.insertAdjacentElement('beforeEnd', messageError);
+
   document.addEventListener('click', deleteMessage());
   document.addEventListener('keydown', (evt) => {
     evt.preventDefault();
@@ -40,7 +42,7 @@ const successMessage = () => {
     .querySelector('#success')
     .content.querySelector('.success');
 
-  document.body.insertAdjacentElement('beforeend', messageSuccess);
+  document.body.insertAdjacentElement('beforeEnd', messageSuccess);
   document.addEventListener('click', () => {
     document.querySelector('.success').remove();
   });
@@ -62,7 +64,7 @@ const sendData = (onSuccess, body) => {
   fetch(`${BASE_URL}${Route.SEND}`,
     {
       method: 'POST',
-      body: body
+      body: body,
     },
   )
     .then((response) => {
@@ -70,8 +72,14 @@ const sendData = (onSuccess, body) => {
         onSuccess();
         successMessage();
       }
+      // else {
+      //   // throw new Error('Ошибка отправки!'); // ???
+      // }
     })
-    .catch(() => showMessageErrorSendData());
+    .catch(() => {
+      onSuccess();
+      showMessageErrorSendData(); // ???
+    });
 };
 
 export { getData, sendData };
