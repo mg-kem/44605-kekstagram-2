@@ -59,7 +59,7 @@ const getData = (onSuccess) => {
       showMessageErrorGetData();
     });
 };
-
+// загрузка данных
 const sendData = (onSuccess, body) => {
   fetch(`${BASE_URL}${Route.SEND}`,
     {
@@ -72,9 +72,6 @@ const sendData = (onSuccess, body) => {
         onSuccess();
         successMessage();
       }
-      // else {
-      //   // throw new Error('Ошибка отправки!'); // ???
-      // }
     })
     .catch(() => {
       onSuccess();
