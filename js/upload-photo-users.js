@@ -15,6 +15,7 @@ const imgUploadButton = uploadFileEditor.querySelector('.img-upload__submit'); /
 const smaller = uploadFileEditor.querySelector('.scale__control--smaller');
 const bigger = uploadFileEditor.querySelector('.scale__control--bigger');
 const scaleControl = uploadFileEditor.querySelector('.scale__control--value');
+
 const scaleStep = 0.25;
 let scale = 1;
 
@@ -41,6 +42,7 @@ function closeWindowEditor() {
   commentArea.value = '';
 }
 
+
 const uploadImage = (evt) => {
 
   const file = evt.target.files[0];
@@ -57,6 +59,7 @@ const uploadImage = (evt) => {
   document.addEventListener('keydown', onClickEscape);
 };
 
+// Функция уменьшения изображения в окне предпросмотра
 const onSmallerClick = () => {
   if (scale > scaleStep) {
     scale -= scaleStep;
@@ -65,6 +68,7 @@ const onSmallerClick = () => {
   }
 };
 
+// Функция увеличения изображения в окне предпросмотра
 const onBiggerClick = () => {
   if (scale < 1) {
     scale += scaleStep;
@@ -72,9 +76,10 @@ const onBiggerClick = () => {
     scaleControl.value = `${scale * 100}%`;
   }
 };
-uploadFileControl.addEventListener('change', uploadImage);
-smaller.addEventListener('click', onSmallerClick);
-bigger.addEventListener('click', onBiggerClick);
+
+uploadFileControl.addEventListener('change', uploadImage); // При изменении input type='file' ...
+smaller.addEventListener('click', onSmallerClick); // Клик на кнопку уменьшения изображения в окне предпросмотра
+bigger.addEventListener('click', onBiggerClick); // Клик на кнопку увеличения изображения в окне предпросмотра
 
 // отправка формы
 uploadForm.addEventListener('submit', (evt) => {
