@@ -1,3 +1,4 @@
+
 import { sendData } from './api.js';
 import { pristine } from './validation.js';
 
@@ -6,10 +7,16 @@ const uploadFileEditor = document.querySelector('.img-upload__overlay'); // Ок
 const uploadFileEditorResetBtn = uploadFileEditor.querySelector('.img-upload__cancel'); // Кнопка закрытия окна редактирования изображения
 const uploadFileControl = uploadForm.querySelector('.img-upload__input'); // input для загрузки изображения
 const imgUploadPrewiev = uploadFileEditor.querySelector('.img-upload__preview').querySelector('img'); // Предварительный просмотр изображения
+const effectImagePreviews = uploadForm.querySelectorAll('.effects__preview');
 const hashtagInput = uploadFileEditor.querySelector('.text__hashtags'); // Input ввода хэштегов
 const commentArea = uploadFileEditor.querySelector('.text__description'); // Inpit ввода комментариев
 const imgUploadButton = uploadFileEditor.querySelector('.img-upload__submit'); // Кнопка отправки формы
 
+const smaller = uploadFileEditor.querySelector('.scale__control--smaller');
+const bigger = uploadFileEditor.querySelector('.scale__control--bigger');
+const scaleControl = uploadFileEditor.querySelector('.scale__control--value');
+const scaleStep = 0.25;
+let scale = 1;
 
 const onClickBtnClose = () => closeWindowEditor();
 
@@ -34,9 +41,15 @@ function closeWindowEditor() {
   commentArea.value = '';
 }
 
-const uploadImage = () => {
-  const file = uploadFileControl.files[0];
-  imgUploadPrewiev.src = URL.createObjectURL(file);
+const uploadImage = (evt) => {
+
+  const file = evt.target.files[0];
+  if (file) {
+    imgUploadPrewiev.src = URL.createObjectURL(file);
+    effectImagePreviews.forEach((preview) => {
+      preview.style.backgroundImage = `url('${URL.createObjectURL(file)}')`;
+    });
+  }
 
   uploadFileEditor.classList.remove('hidden');
   document.body.classList.add('modal-open');
@@ -44,7 +57,24 @@ const uploadImage = () => {
   document.addEventListener('keydown', onClickEscape);
 };
 
+const onSmallerClick = () => {
+  if (scale > scaleStep) {
+    scale -= scaleStep;
+    imgUploadPrewiev.style.transform = `scale(${scale})`;
+    scaleControl.value = `${scale * 100}%`;
+  }
+};
+
+const onBiggerClick = () => {
+  if (scale < 1) {
+    scale += scaleStep;
+    imgUploadPrewiev.style.transform = `scale(${scale})`;
+    scaleControl.value = `${scale * 100}%`;
+  }
+};
 uploadFileControl.addEventListener('change', uploadImage);
+smaller.addEventListener('click', onSmallerClick);
+bigger.addEventListener('click', onBiggerClick);
 
 // отправка формы
 uploadForm.addEventListener('submit', (evt) => {
@@ -56,6 +86,6 @@ uploadForm.addEventListener('submit', (evt) => {
 
     imgUploadButton.disabled = true;
     imgUploadButton.textContent = 'Публикую...';
-    sendData(closeWindowEditor, loadForm);
+    sendData(loadForm, closeWindowEditor);
   }
 });

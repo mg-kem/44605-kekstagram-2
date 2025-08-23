@@ -22,6 +22,7 @@ pristine.addValidator(commentArea, isValidCommentArea, 'Длина коммен�
 function isArrayUnique(arr) {
   return new Set(arr).size === arr.length;
 }
+
 function isValidHashTag(value) {
   const regularString = /^#[a-zа-яё0-9]{0,19}$/i; // регулярное выражение
   const hashtags = value.split(/\s+/); // Сохраняю массив хэштегов

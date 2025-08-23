@@ -5,6 +5,8 @@ const Route = {
   SEND: '/',
 };
 
+const time = 5000;
+
 const showMessageErrorGetData = () => {
   const messageError = document
     .querySelector('#data-error')
@@ -14,7 +16,7 @@ const showMessageErrorGetData = () => {
 
   setTimeout(() => {
     document.querySelector('.data-error').remove();
-  }, 5000);
+  }, time);
 };
 
 const remove = (elem) => document.querySelector(`.${elem}`).remove();
@@ -25,7 +27,8 @@ const showMessageErrorSendData = () => {
     .content.querySelector('.error');
 
   document.body.insertAdjacentElement('beforeEnd', messageError);
-  document.addEventListener('click', remove('error'));
+
+  document.addEventListener('click', () => remove('error'));
   document.addEventListener('keydown', (evt) => {
     evt.preventDefault();
     if (evt.key === 'Escape') {
@@ -41,6 +44,12 @@ const successMessage = () => {
 
   document.body.insertAdjacentElement('beforeEnd', messageSuccess);
   document.addEventListener('click', () => remove('success'));
+  document.addEventListener('keydown', (evt) => {
+    evt.preventDefault();
+    if (evt.key === 'Escape') {
+      remove('success');
+    }
+  });
 };
 
 // получение данных
@@ -55,24 +64,26 @@ const getData = (onSuccess) => {
     });
 };
 // отправка данных
-const sendData = (onSuccess, body) => {
+const sendData = (body, onSuccess) => {
+
   fetch(`${BASE_URL}${Route.SEND}`,
     {
       method: 'POST',
-      body: body,
+      body,
     },
   )
     .then((response) => {
       if (response.ok) {
-        onSuccess();
         successMessage();
       } else {
         showMessageErrorSendData();
       }
+      return response.json();
     })
     .catch(() => {
       showMessageErrorSendData(); // ???
-    });
+    })
+    .finally(() => onSuccess());
 };
 
 export { getData, sendData };
