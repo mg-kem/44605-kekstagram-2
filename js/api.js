@@ -1,11 +1,12 @@
-const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
 
-const Route = {
-  GET: '/data',
-  SEND: '/',
-};
+import {
+  BASE_URL,
+  TIMEOUT_DISPLAYED_ERROR_MESSAGE,
+  Route,
+  isEscapeKey,
+} from './utils';
 
-const time = 5000;
+const remove = (elem) => document.querySelector(`.${elem}`).remove();
 
 const showMessageErrorGetData = () => {
   const messageError = document
@@ -16,10 +17,8 @@ const showMessageErrorGetData = () => {
 
   setTimeout(() => {
     document.querySelector('.data-error').remove();
-  }, time);
+  }, TIMEOUT_DISPLAYED_ERROR_MESSAGE);
 };
-
-const remove = (elem) => document.querySelector(`.${elem}`).remove();
 
 const showMessageErrorSendData = () => {
   const messageError = document
@@ -31,7 +30,7 @@ const showMessageErrorSendData = () => {
   document.addEventListener('click', () => remove('error'));
   document.addEventListener('keydown', (evt) => {
     evt.preventDefault();
-    if (evt.key === 'Escape') {
+    if (isEscapeKey(evt)) {
       remove('error');
     }
   });
@@ -46,13 +45,12 @@ const successMessage = () => {
   document.addEventListener('click', () => remove('success'));
   document.addEventListener('keydown', (evt) => {
     evt.preventDefault();
-    if (evt.key === 'Escape') {
+    if (isEscapeKey(evt)) {
       remove('success');
     }
   });
 };
 
-// получение данных
 const getData = (onSuccess) => {
   fetch(`${BASE_URL}${Route.GET}`)
     .then((response) => response.json())
@@ -63,7 +61,7 @@ const getData = (onSuccess) => {
       showMessageErrorGetData();
     });
 };
-// отправка данных
+
 const sendData = (body, onSuccess) => {
 
   fetch(`${BASE_URL}${Route.SEND}`,

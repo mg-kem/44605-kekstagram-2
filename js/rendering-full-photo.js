@@ -1,4 +1,5 @@
 import { clearComments, renderComments } from './render-comments-full-photo.js';
+import { isEscapeKey } from './utils.js';
 
 const bigPicture = document.querySelector('.big-picture'); // блок FullPhoto
 const bigPictureBtnClose = bigPicture.querySelector('.big-picture__cancel'); // крестик закрытия FullPhoto
@@ -12,7 +13,7 @@ const onClickBtnClose = (evt) => {
 };
 
 const onClickEscape = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeFullPhoto();
   }

@@ -1,13 +1,14 @@
 
 import { sendData } from './api.js';
 import { pristine } from './validation.js';
+import { isEscapeKey } from './utils.js';
 
 const uploadForm = document.querySelector('.img-upload__form'); // Форма отправки изображения
+const uploadFileControl = uploadForm.querySelector('.img-upload__input'); // input для загрузки изображения
 const uploadFileEditor = document.querySelector('.img-upload__overlay'); // Окно редактирования изображения перед отправкой
 const uploadFileEditorResetBtn = uploadFileEditor.querySelector('.img-upload__cancel'); // Кнопка закрытия окна редактирования изображения
-const uploadFileControl = uploadForm.querySelector('.img-upload__input'); // input для загрузки изображения
-const imgUploadPrewiev = uploadFileEditor.querySelector('.img-upload__preview').querySelector('img'); // Предварительный просмотр изображения
-const effectImagePreviews = uploadForm.querySelectorAll('.effects__preview');
+const imgUploadPrewiev = uploadFileEditor.querySelector('.img-upload__preview img'); // Предварительный просмотр изображения
+const effectImagePreviews = uploadFileEditor.querySelectorAll('.effects__preview');
 const hashtagInput = uploadFileEditor.querySelector('.text__hashtags'); // Input ввода хэштегов
 const commentArea = uploadFileEditor.querySelector('.text__description'); // Inpit ввода комментариев
 const imgUploadButton = uploadFileEditor.querySelector('.img-upload__submit'); // Кнопка отправки формы
@@ -22,11 +23,27 @@ let scale = 1;
 const onClickBtnClose = () => closeWindowEditor();
 
 const onClickEscape = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscapeKey(evt)) {
     if (document.activeElement === hashtagInput || document.activeElement === commentArea) {
       return;
     }
     closeWindowEditor();
+  }
+};
+
+const onSmallerClick = () => {
+  if (scale > scaleStep) {
+    scale -= scaleStep;
+    imgUploadPrewiev.style.transform = `scale(${scale})`;
+    scaleControl.value = `${scale * 100}%`;
+  }
+};
+
+const onBiggerClick = () => {
+  if (scale < 1) {
+    scale += scaleStep;
+    imgUploadPrewiev.style.transform = `scale(${scale})`;
+    scaleControl.value = `${scale * 100}%`;
   }
 };
 
@@ -35,13 +52,14 @@ function closeWindowEditor() {
   document.body.classList.remove('modal-open');
   uploadFileEditorResetBtn.removeEventListener('click', onClickBtnClose);
   document.removeEventListener('keydown', onClickEscape);
+  smaller.removeEventListener('click', onSmallerClick); // Клик на кнопку уменьшения изображения в окне предпросмотра
+  bigger.removeEventListener('click', onBiggerClick); // Клик на кнопку увеличения изображения в окне предпросмотра
   imgUploadButton.disabled = false;
   imgUploadButton.textContent = 'Опубликовать';
   uploadFileControl.value = '';
   hashtagInput.value = '';
   commentArea.value = '';
 }
-
 
 const uploadImage = (evt) => {
 
@@ -57,24 +75,6 @@ const uploadImage = (evt) => {
   document.body.classList.add('modal-open');
   uploadFileEditorResetBtn.addEventListener('click', onClickBtnClose);
   document.addEventListener('keydown', onClickEscape);
-};
-
-// Функция уменьшения изображения в окне предпросмотра
-const onSmallerClick = () => {
-  if (scale > scaleStep) {
-    scale -= scaleStep;
-    imgUploadPrewiev.style.transform = `scale(${scale})`;
-    scaleControl.value = `${scale * 100}%`;
-  }
-};
-
-// Функция увеличения изображения в окне предпросмотра
-const onBiggerClick = () => {
-  if (scale < 1) {
-    scale += scaleStep;
-    imgUploadPrewiev.style.transform = `scale(${scale})`;
-    scaleControl.value = `${scale * 100}%`;
-  }
 };
 
 uploadFileControl.addEventListener('change', uploadImage); // При изменении input type='file' ...
