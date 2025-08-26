@@ -1,7 +1,8 @@
 
 import { sendData } from './api.js';
 import { pristine } from './validation.js';
-import { isEscapeKey } from './utils.js';
+import { isEscapeKey } from './support.js';
+import { addEventListenerEffect, removeEventListenerEffect, sliderContainer } from './slider.js';
 
 const uploadForm = document.querySelector('.img-upload__form'); // Форма отправки изображения
 const uploadFileControl = uploadForm.querySelector('.img-upload__input'); // input для загрузки изображения
@@ -54,6 +55,7 @@ function closeWindowEditor() {
   document.removeEventListener('keydown', onClickEscape);
   smaller.removeEventListener('click', onSmallerClick); // Клик на кнопку уменьшения изображения в окне предпросмотра
   bigger.removeEventListener('click', onBiggerClick); // Клик на кнопку увеличения изображения в окне предпросмотра
+  removeEventListenerEffect();
   imgUploadButton.disabled = false;
   imgUploadButton.textContent = 'Опубликовать';
   uploadFileControl.value = '';
@@ -70,7 +72,8 @@ const uploadImage = (evt) => {
       preview.style.backgroundImage = `url('${URL.createObjectURL(file)}')`;
     });
   }
-
+  sliderContainer.classList.add('hidden');
+  addEventListenerEffect();
   uploadFileEditor.classList.remove('hidden');
   document.body.classList.add('modal-open');
   uploadFileEditorResetBtn.addEventListener('click', onClickBtnClose);
@@ -94,3 +97,5 @@ uploadForm.addEventListener('submit', (evt) => {
     sendData(loadForm, closeWindowEditor);
   }
 });
+
+export { uploadForm, imgUploadPrewiev };

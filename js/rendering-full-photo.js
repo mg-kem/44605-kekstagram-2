@@ -1,5 +1,5 @@
 import { clearComments, renderComments } from './render-comments-full-photo.js';
-import { isEscapeKey } from './utils.js';
+import { isEscapeKey } from './support.js';
 
 const bigPicture = document.querySelector('.big-picture'); // блок FullPhoto
 const bigPictureBtnClose = bigPicture.querySelector('.big-picture__cancel'); // крестик закрытия FullPhoto

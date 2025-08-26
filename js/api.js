@@ -4,7 +4,7 @@ import {
   TIMEOUT_DISPLAYED_ERROR_MESSAGE,
   Route,
   isEscapeKey,
-} from './utils';
+} from './support';
 
 const remove = (elem) => document.querySelector(`.${elem}`).remove();
 
