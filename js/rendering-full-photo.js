@@ -1,9 +1,9 @@
 import { clearComments, renderComments } from './render-comments-full-photo.js';
-import { isEscapeKey } from './support.js';
+import { isEscapeKey } from './utils.js';
 
-const bigPicture = document.querySelector('.big-picture'); // блок FullPhoto
+export const bigPicture = document.querySelector('.big-picture'); // блок FullPhoto
 const bigPictureBtnClose = bigPicture.querySelector('.big-picture__cancel'); // крестик закрытия FullPhoto
-const bigPictureImg = bigPicture.querySelector('.big-picture__img').querySelector('img'); // Тег внутри блока FullPhoto
+const bigPictureImg = bigPicture.querySelector('.big-picture__img img'); // Тег внутри блока FullPhoto
 const likesCount = bigPicture.querySelector('.likes-count'); // количество лайков
 const commentsCaption = bigPicture.querySelector('.social__caption'); // блок с описанием
 
@@ -27,7 +27,7 @@ function closeFullPhoto() {
   document.removeEventListener('keydown', onClickEscape);
 }
 
-const openFullPhoto = (objectphoto) => {
+export const openFullPhoto = (objectphoto) => {
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
   bigPictureBtnClose.addEventListener('click', onClickBtnClose);
@@ -39,5 +39,3 @@ const openFullPhoto = (objectphoto) => {
   // рендерим комментарии
   renderComments(objectphoto.comments);
 };
-
-export { openFullPhoto };

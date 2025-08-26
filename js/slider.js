@@ -1,7 +1,7 @@
-import { imgUploadPrewiev } from './upload-photo-users';
-import { effectSettings } from './support';
+import { imgUploadPrewiev } from './upload-form';
+import { EFFECT_SETTINGS } from './const';
 
-const sliderContainer = document.querySelector('.img-upload__effect-level');
+export const sliderContainer = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
 const sliderElementValue = document.querySelector('.effect-level__value');
 const effectElements = document.querySelectorAll('.effects__radio');
@@ -69,7 +69,7 @@ const selectEffect = () => {
     default:
       sliderElement.removeAttribute('disabled');
       sliderContainer.classList.remove('hidden');
-      settings = effectSettings[effectValue];
+      settings = EFFECT_SETTINGS[effectValue];
       if (settings) {
         applyEffect(settings.min, settings.max, settings.step, settings.start, settings.filterType, effectValue); // применяем эффект с выбранными настройками
       }
@@ -78,12 +78,10 @@ const selectEffect = () => {
 };
 
 // Добавление обработчика выбора эффекта
-const addEventListenerEffect = () => {
+export const addEventListenerEffect = () => {
   effectElements.forEach((effectElement) => effectElement.addEventListener('change', selectEffect));
 };
 // Удаление обработчика выбора эффекта
-const removeEventListenerEffect = () => {
+export const removeEventListenerEffect = () => {
   effectElements.forEach((effectElement) => effectElement.removeEventListener('change', selectEffect));
 };
-
-export { addEventListenerEffect, removeEventListenerEffect, sliderContainer };

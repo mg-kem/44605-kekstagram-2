@@ -1,10 +1,6 @@
 
-import {
-  BASE_URL,
-  TIMEOUT_DISPLAYED_ERROR_MESSAGE,
-  Route,
-  isEscapeKey,
-} from './support';
+import { BASE_URL, ROUTE, TIMEOUT_DISPLAYED_ERROR_MESSAGE } from './const';
+import { isEscapeKey } from './utils';
 
 const remove = (elem) => document.querySelector(`.${elem}`).remove();
 
@@ -36,7 +32,7 @@ const showMessageErrorSendData = () => {
   });
 };
 
-const successMessage = () => {
+const showMessageSuccess = () => {
   const messageSuccess = document
     .querySelector('#success')
     .content.querySelector('.success');
@@ -51,8 +47,8 @@ const successMessage = () => {
   });
 };
 
-const getData = (onSuccess) => {
-  fetch(`${BASE_URL}${Route.GET}`)
+export const getDataFromServer = (onSuccess) => {
+  fetch(`${BASE_URL}${ROUTE.GET}`)
     .then((response) => response.json())
     .then((objectsPhoto) => {
       onSuccess(objectsPhoto);
@@ -62,9 +58,9 @@ const getData = (onSuccess) => {
     });
 };
 
-const sendData = (body, onSuccess) => {
+export const sendDataToServer = (body, onSuccess) => {
 
-  fetch(`${BASE_URL}${Route.SEND}`,
+  fetch(`${BASE_URL}${ROUTE.SEND}`,
     {
       method: 'POST',
       body,
@@ -72,16 +68,14 @@ const sendData = (body, onSuccess) => {
   )
     .then((response) => {
       if (response.ok) {
-        successMessage();
+        showMessageSuccess();
       } else {
         showMessageErrorSendData();
       }
       return response.json();
     })
     .catch(() => {
-      showMessageErrorSendData(); // ???
+      showMessageErrorSendData();
     })
     .finally(() => onSuccess());
 };
-
-export { getData, sendData };

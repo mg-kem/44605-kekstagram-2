@@ -1,16 +1,13 @@
-const isEscapeKey = (evt) => evt.key === 'Escape';
-
-// API.JS
-const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
-const TIMEOUT_DISPLAYED_ERROR_MESSAGE = 5000;
-
-const Route = {
+// api.js
+export const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
+export const TIMEOUT_DISPLAYED_ERROR_MESSAGE = 500;
+export const ROUTE = {
   GET: '/data',
-  SEND: '/',
+  SEND: '/'
 };
 
-// SETTINGS.JS
-const effectSettings = {
+// slider.js
+export const EFFECT_SETTINGS = {
   none: null, // эффект "Оригинальный"
   chrome: { min: 0, max: 1, step: 0.1, start: 0.5, filterType: 'grayscale' }, // эффект "Хром"
   sepia: { min: 0, max: 1, step: 0.1, start: 0.5, filterType: 'sepia' }, // эффект "Сепия"
@@ -19,10 +16,11 @@ const effectSettings = {
   heat: { min: 1, max: 3, step: 0.1, start: 2, filterType: 'brightness' }, // эффект "Зной"
 };
 
-export {
-  isEscapeKey,
-  BASE_URL,
-  TIMEOUT_DISPLAYED_ERROR_MESSAGE,
-  Route,
-  effectSettings
-};
+// render-comments-full-photo.js
+export const COUNT_STEP = 5;
+
+// upload-from.js
+export const SCALE_STEP = 0.25;
+
+// validation.js
+export const MAX_LENGTH_DESCRIPTION = 140;

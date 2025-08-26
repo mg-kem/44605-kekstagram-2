@@ -1,6 +1,9 @@
-const COUNT_STEP = 5;
+
+import { COUNT_STEP } from './const';
+
 let currentCount = 0;
 let comments = [];
+
 
 const bigPicture = document.querySelector('.big-picture');
 const socialCommentsNode = bigPicture.querySelector('.social__comments'); // блок комментариев
@@ -10,9 +13,9 @@ const commentsCount = bigPicture.querySelector('.social__comment-count'); // б�
 socialCommentsNode.textContent = '';
 
 const renderNextComments = () => {
-  const commentsFragment = document.createDocumentFragment();
-  const renderedComments = comments.slice(currentCount, currentCount + COUNT_STEP);
-  const renderedCommentsLength = renderedComments.length + currentCount;
+  const commentsFragment = document.createDocumentFragment(); // создаю фрагмент комментария
+  const renderedComments = comments.slice(currentCount, currentCount + COUNT_STEP); // отрендеренные комменты
+  const renderedCommentsLength = renderedComments.length + currentCount; // сохраняю длину отрендеренных комментов
 
   renderedComments.forEach((comment) => {
     const socialCommentNode = socialCommentTemplate.cloneNode(true);
@@ -33,18 +36,16 @@ const renderNextComments = () => {
   currentCount += COUNT_STEP;
 };
 
-const clearComments = () => {
+export const clearComments = () => {
   currentCount = 0;
   socialCommentsNode.textContent = '';
   commentsLoaderButton.classList.remove('hidden');
   commentsLoaderButton.removeEventListener('click', renderNextComments);
 };
 
-const renderComments = (currentPhotoComments) => {
+export const renderComments = (currentPhotoComments) => {
   comments = currentPhotoComments;
   renderNextComments();
 
   commentsLoaderButton.addEventListener('click', renderNextComments);
 };
-
-export { clearComments, renderComments };
