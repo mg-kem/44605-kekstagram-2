@@ -29,16 +29,18 @@ const applyEffect = (minRange, maxRange, stepRange, startRange, effectName) => {
   // Обработчик изменения позиции ползунка
   sliderElement.noUiSlider.on('update', (values) => {
     const effectValue = values; // получаем текущее значение слайдера
-
-    if (effectName === 'blur') { // проверяем не является ли выбранный фильтр "Фобос"
-      imgUploadPrewiev.style.filter = `${effectName}(${effectValue}px)`; // применяем эффект фильтрации (фобос)
-      sliderElementValue.value = parseFloat(effectValue, 1); // записываем новое значение в скрытое поле
-    } else if (effectName === 'invert') { // проверяем не является ли выбранный фильтр "Марвин"
-      imgUploadPrewiev.style.filter = `${effectName}(${effectValue})`; // применяем эффект фильтрации (марвин)
-      sliderElementValue.value = effectValue * 100; // записываем новое значение в скрытое поле
-    } else {
-      imgUploadPrewiev.style.filter = `${effectName}(${effectValue})`; // применяем эффект фильтрации (хром, сепия, зной)
-      sliderElementValue.value = parseFloat(effectValue, 1); // записываем новое значение в скрытое поле
+    switch (effectName) {
+      case 'blur':
+        imgUploadPrewiev.style.filter = `${effectName}(${effectValue}px)`; // применяем эффект фильтрации (фобос)
+        sliderElementValue.value = parseFloat(effectValue, 1); // записываем новое значение в скрытое поле
+        break;
+      case 'invert':
+        imgUploadPrewiev.style.filter = `${effectName}(${effectValue})`; // применяем эффект фильтрации (марвин)
+        sliderElementValue.value = effectValue * 100; // записываем новое значение в скрытое поле
+        break;
+      default:
+        imgUploadPrewiev.style.filter = `${effectName}(${effectValue})`; // применяем эффект фильтрации (хром, сепия, зной)
+        sliderElementValue.value = parseFloat(effectValue, 1); // записываем новое значение в скрытое поле
     }
   });
 };
@@ -78,10 +80,10 @@ const selectEffect = () => {
 };
 
 // Добавление обработчика выбора эффекта
-export const addEventListenerEffect = () => {
+export const addChangeEffect = () => {
   effectElements.forEach((effectElement) => effectElement.addEventListener('change', selectEffect));
 };
 // Удаление обработчика выбора эффекта
-export const removeEventListenerEffect = () => {
+export const removeChangeEffect = () => {
   effectElements.forEach((effectElement) => effectElement.removeEventListener('change', selectEffect));
 };

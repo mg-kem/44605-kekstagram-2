@@ -1,6 +1,6 @@
 // api.js
 export const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
-export const TIMEOUT_DISPLAYED_ERROR_MESSAGE = 500;
+export const TIMEOUT_DISPLAYED_ERROR_MESSAGE = 5000;
 export const ROUTE = {
   GET: '/data',
   SEND: '/'
@@ -24,3 +24,15 @@ export const SCALE_STEP = 0.25;
 
 // validation.js
 export const MAX_LENGTH_DESCRIPTION = 140;
+
+// filter-thumbmails.js
+export const FILTER = {
+  default: 'filter-default',
+  random: 'filter-random',
+  discussed: 'filter-discussed',
+};
+
+export const SORTFUNC = {
+  random: () => 0.5 - Math.random(),
+  discussed: (a, b) => b.comments.length - a.comments.length,
+};
