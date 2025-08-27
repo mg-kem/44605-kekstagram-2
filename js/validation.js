@@ -1,3 +1,5 @@
+import { MAX_LENGTH_DESCRIPTION } from './const';
+
 const uploadForm = document.querySelector('.img-upload__form'); // Форма отправки изображения
 const commentArea = uploadForm.querySelector('.text__description'); // Inpit ввода комментариев
 const hashtagInput = uploadForm.querySelector('.text__hashtags'); // Input ввода хэштегов
@@ -5,7 +7,7 @@ const hashtagInput = uploadForm.querySelector('.text__hashtags'); // Input вв�
 let errorMessage = '';
 
 // Создаем PRISTINE и передаем переменную формы. Далее навешиваем на "форму"(pristine) валидацию
-const pristine = new Pristine(uploadForm, {
+export const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorClass: 'img-upload__field-wrapper--error',
   errorTextParent: 'img-upload__field-wrapper',
@@ -13,7 +15,7 @@ const pristine = new Pristine(uploadForm, {
 
 // проверка длины комментария
 function isValidCommentArea(value) {
-  const commentLength = value.length <= 140;
+  const commentLength = value.length <= MAX_LENGTH_DESCRIPTION;
   return commentLength;
 }
 pristine.addValidator(commentArea, isValidCommentArea, 'Длина комментария должна быть не более 140 символов');
@@ -63,5 +65,3 @@ function getErrorMessage() {
   }
 }
 pristine.addValidator(hashtagInput, isValidHashTag, getErrorMessage);
-
-export { pristine };

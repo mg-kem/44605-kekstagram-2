@@ -11,7 +11,7 @@ const placeInsertThumbnail = document.querySelector('.pictures');
 //создаем фрагмент для временной отрисовки в оперативной памяти
 const pictureFragment = document.createDocumentFragment();
 
-const renderObjectPhoto = (objectsPhoto) => {
+export const renderObjectPhoto = (objectsPhoto) => {
   objectsPhoto.forEach((objectPhoto) => {
     const cloneTemplate = pictureTemplate.cloneNode(true);
 
@@ -31,4 +31,3 @@ const renderObjectPhoto = (objectsPhoto) => {
   placeInsertThumbnail.append(pictureFragment);
 };
 
-export { renderObjectPhoto };

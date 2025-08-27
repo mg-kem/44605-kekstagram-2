@@ -1,7 +1,8 @@
 
+import { getDataFromServer } from './api.js';
 import { renderObjectPhoto } from './rendering-thumbnails.js';
-import { getData } from './api.js'; // Получаем данные, рендерим объекты, навешиваем обработчик открытия FullPhoto
-import './upload-photo-users.js'; // Загрузка изображений на сайт
+import { sendingFile } from './upload-form.js'; // Загрузка изображений на сайт
+// import './slider.js';
 
-getData(renderObjectPhoto);
-
+getDataFromServer(renderObjectPhoto);
+sendingFile();
