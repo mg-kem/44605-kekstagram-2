@@ -2,7 +2,7 @@
 import { sendDataToServer } from './api.js';
 import { pristine } from './validation.js';
 import { isEscapeKey } from './utils.js';
-import { addEventListenerEffect, removeEventListenerEffect, sliderContainer } from './slider.js';
+import { addChangeEffect, removeChangeEffect, sliderContainer } from './slider.js';
 import { SCALE_STEP } from './const.js';
 
 export const uploadForm = document.querySelector('.img-upload__form'); // Форма отправки изображения
@@ -55,7 +55,7 @@ function closeWindowEditor() {
   document.removeEventListener('keydown', onClickEscape);
   btnSmaller.removeEventListener('click', onSmallerClick); // Клик на кнопку уменьшения изображения в окне предпросмотра
   btnBigger.removeEventListener('click', onBiggerClick); // Клик на кнопку увеличения изображения в окне предпросмотра
-  removeEventListenerEffect();
+  removeChangeEffect();
   imgUploadButton.disabled = false;
   imgUploadButton.textContent = 'Опубликовать';
   uploadFileControl.value = '';
@@ -71,7 +71,7 @@ const uploadImage = (evt) => {
       preview.style.backgroundImage = `url('${URL.createObjectURL(file)}')`;
     });
   }
-  addEventListenerEffect();
+  addChangeEffect();
   sliderContainer.classList.add('hidden');
   uploadFileEditor.classList.remove('hidden');
   document.body.classList.add('modal-open');

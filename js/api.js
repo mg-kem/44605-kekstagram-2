@@ -1,6 +1,8 @@
 
 import { BASE_URL, ROUTE, TIMEOUT_DISPLAYED_ERROR_MESSAGE } from './const';
 import { isEscapeKey } from './utils';
+import { showFilterObject } from './filter-thumbnails';
+
 
 const remove = (elem) => document.querySelector(`.${elem}`).remove();
 
@@ -51,6 +53,7 @@ export const getDataFromServer = (onSuccess) => {
   fetch(`${BASE_URL}${ROUTE.GET}`)
     .then((response) => response.json())
     .then((objectsPhoto) => {
+      showFilterObject(objectsPhoto);
       onSuccess(objectsPhoto);
     })
     .catch(() => {
@@ -59,7 +62,6 @@ export const getDataFromServer = (onSuccess) => {
 };
 
 export const sendDataToServer = (body, onSuccess) => {
-
   fetch(`${BASE_URL}${ROUTE.SEND}`,
     {
       method: 'POST',
