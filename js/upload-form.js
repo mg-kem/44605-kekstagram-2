@@ -1,4 +1,3 @@
-
 import { sendDataToServer } from './api.js';
 import { pristine } from './validation.js';
 import { isEscapeKey } from './utils.js';

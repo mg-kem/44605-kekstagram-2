@@ -1,6 +1,5 @@
-
 import { renderObjectPhoto } from './rendering-thumbnails';
-import { FILTER, SORTFUNC } from './const';
+import { Filter, SortFunc } from './const';
 import { debounce } from './utils';
 
 const filterThumbnails = document.querySelector('.img-filters'); // section
@@ -19,21 +18,19 @@ const onClickButtonFilter = (evt) => {
     activeButton.classList.toggle('img-filters__button--active');
     currentButton.classList.toggle('img-filters__button--active');
   }
-
   let filteredPhoto = [];
 
   switch (evt.target.id) {
-    case FILTER.random:
-      filteredPhoto = objectsData.sort(SORTFUNC.random).slice(0, 10);
+    case Filter.random:
+      filteredPhoto = objectsData.sort(SortFunc.random).slice(0, 10);
       break;
-    case FILTER.discussed:
-      filteredPhoto = objectsData.sort(SORTFUNC.discussed);
+    case Filter.discussed:
+      filteredPhoto = objectsData.sort(SortFunc.discussed);
       break;
-    case FILTER.default:
+    case Filter.default:
       filteredPhoto = objectsData;
       break;
   }
-  // renderObjectPhoto(filteredPhoto);
   debounceRender(filteredPhoto);
 };
 

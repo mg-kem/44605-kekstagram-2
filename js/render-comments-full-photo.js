@@ -1,9 +1,7 @@
-
 import { COUNT_STEP } from './const';
 
 let currentCount = 0;
 let comments = [];
-
 
 const bigPicture = document.querySelector('.big-picture');
 const socialCommentsNode = bigPicture.querySelector('.social__comments'); // блок комментариев
