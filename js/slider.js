@@ -1,5 +1,5 @@
 import { imgUploadPrewiev } from './upload-form';
-import { EFFECT_SETTINGS } from './const';
+import { EffectSettings } from './const';
 
 export const sliderContainer = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
@@ -71,7 +71,7 @@ const selectEffect = () => {
     default:
       sliderElement.removeAttribute('disabled');
       sliderContainer.classList.remove('hidden');
-      settings = EFFECT_SETTINGS[effectValue];
+      settings = EffectSettings[effectValue];
       if (settings) {
         applyEffect(settings.min, settings.max, settings.step, settings.start, settings.filterType, effectValue); // применяем эффект с выбранными настройками
       }

@@ -22,6 +22,7 @@ pristine.addValidator(commentArea, isValidCommentArea, 'Длина коммен�
 
 // проверка хэштегов
 function isArrayUnique(arr) {
+  // arr.toLowerCase();
   return new Set(arr).size === arr.length;
 }
 
