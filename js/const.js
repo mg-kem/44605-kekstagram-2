@@ -1,5 +1,5 @@
 // api-fetch.js
-export const BASE_URL = 'https://31.javadscript.htmlacademy.pro/kekstagram';
+export const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram';
 export const TIMEOUT_DISPLAYED_ERROR_MESSAGE = 5000;
 export const Route = {
   GET: '/data',
