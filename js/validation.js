@@ -21,12 +21,9 @@ const isValidCommentArea = (value) => {
 pristine.addValidator(commentArea, isValidCommentArea, 'Длина комментария должна быть не более 140 символов');
 
 // проверка хэштегов
-// const isArrayUnique = (arr) => new Set(arr).size === arr.length;
-
 const isArrayUnique = (hashtagsArray) => {
-  const uniqueHashtag = new Set(hashtagsArray.map((hashtagArray) => hashtagArray.toLowerCase()));
-  console.log(uniqueHashtag);
-  return uniqueHashtag.size === hashtagsArray.length;
+  const uniqueHashtags = new Set(hashtagsArray.map((hashtagArray) => hashtagArray.toLowerCase()));
+  return uniqueHashtags.size === hashtagsArray.length;
 };
 
 const isValidHashTag = (value) => {
