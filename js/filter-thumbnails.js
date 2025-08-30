@@ -1,12 +1,12 @@
-import { renderObjectPhoto } from './rendering-thumbnails';
+import { renderThumbnails } from './rendering-thumbnails';
 import { Filter, SortFunc } from './const';
 import { debounce } from './utils';
 
 const filterThumbnails = document.querySelector('.img-filters'); // section
 const filterButtons = filterThumbnails.querySelectorAll('.img-filters__button'); // кнопки внутри section
-let objectsData = []; // обозначаю пустой массив
+let originalPhotos = []; // обозначаю пустой массив
 
-const debounceRender = debounce(renderObjectPhoto);
+const debounceRender = debounce(renderThumbnails);
 
 const onClickButtonFilter = (evt) => {
   const currentButton = evt.target;
@@ -21,14 +21,14 @@ const onClickButtonFilter = (evt) => {
   let filteredPhoto = [];
 
   switch (evt.target.id) {
-    case Filter.random:
-      filteredPhoto = objectsData.sort(SortFunc.random).slice(0, 10);
+    case Filter.RANDOM:
+      filteredPhoto = originalPhotos.sort(SortFunc.RANDOM).slice(0, 10);
       break;
-    case Filter.discussed:
-      filteredPhoto = objectsData.sort(SortFunc.discussed);
+    case Filter.DISCUSSED:
+      filteredPhoto = originalPhotos.sort(SortFunc.DISCUSSED);
       break;
-    case Filter.default:
-      filteredPhoto = objectsData;
+    case Filter.DEFAULT:
+      filteredPhoto = originalPhotos;
       break;
   }
   debounceRender(filteredPhoto);
@@ -36,7 +36,7 @@ const onClickButtonFilter = (evt) => {
 
 export const showFilterObject = (data) => {
   if (data) {
-    objectsData = data;
+    originalPhotos = data;
     filterThumbnails.classList.remove('img-filters--inactive');
     filterButtons.forEach((filterButton) => {
       filterButton.addEventListener('click', onClickButtonFilter);

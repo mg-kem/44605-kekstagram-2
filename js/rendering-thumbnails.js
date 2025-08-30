@@ -11,17 +11,17 @@ const placeInsertThumbnail = document.querySelector('.pictures');
 //создаем фрагмент для временной отрисовки в оперативной памяти
 const pictureFragment = document.createDocumentFragment();
 
-export const renderObjectPhoto = (objectsPhoto) => {
+const renderThumbnails = (photos) => {
   clearThumbnails();
-  objectsPhoto.forEach((objectPhoto) => {
+  photos.forEach((photo) => {
     const cloneTemplate = pictureTemplate.cloneNode(true);
-    cloneTemplate.dataset.pictureId = objectPhoto.id;
-    cloneTemplate.children[0].src = objectPhoto.url;
-    cloneTemplate.children[0].alt = objectPhoto.description;
-    cloneTemplate.querySelector('.picture__likes').textContent = objectPhoto.likes;
-    cloneTemplate.querySelector('.picture__comments').textContent = objectPhoto.comments.length;
+    cloneTemplate.dataset.pictureId = photo.id;
+    cloneTemplate.querySelector('.picture__img').src = photo.url;
+    cloneTemplate.querySelector('.picture__img').alt = photo.description;
+    cloneTemplate.querySelector('.picture__likes').textContent = photo.likes;
+    cloneTemplate.querySelector('.picture__comments').textContent = photo.comments.length;
     cloneTemplate.addEventListener('click', () => {
-      openFullPhoto(objectPhoto);
+      openFullPhoto(photo);
     });
 
     pictureFragment.append(cloneTemplate);
@@ -33,3 +33,5 @@ export const renderObjectPhoto = (objectsPhoto) => {
 function clearThumbnails() {
   placeInsertThumbnail.querySelectorAll('a.picture').forEach((thumbnail) => thumbnail.remove());
 }
+
+export { renderThumbnails };

@@ -18,9 +18,9 @@ const renderNextComments = () => {
   renderedComments.forEach((comment) => {
     const socialCommentNode = socialCommentTemplate.cloneNode(true);
 
-    socialCommentNode.children[0].src = comment.avatar; // Присваиваю адрес аватара комментатора
-    socialCommentNode.children[0].alt = comment.name; // Присваиваю к описанию аватара имя комментатора
-    socialCommentNode.children[1].textContent = comment.message; // Прописываю в параграф текст комментария
+    socialCommentNode.querySelector('.social__picture').src = comment.avatar; // Присваиваю адрес аватара комментатора
+    socialCommentNode.querySelector('.social__picture').alt = comment.name; // Присваиваю к описанию аватара имя комментатора
+    socialCommentNode.querySelector('.social__text').textContent = comment.message; // Прописываю в параграф текст комментария
 
     commentsFragment.append(socialCommentNode); // Сохраняю полученный комментарий (элемент li) в фрагмент. Далее в цикле создаю новый и так же записываю в фрагмент
   });

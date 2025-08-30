@@ -1,6 +1,7 @@
-import { getDataFromServer } from './api.js';
-import { renderObjectPhoto } from './rendering-thumbnails.js';
+import { getDataFromServer } from './api-fetch.js';
+import { renderThumbnails } from './rendering-thumbnails.js';
 import { sendingFile } from './upload-form.js';
 
-getDataFromServer(renderObjectPhoto);
+getDataFromServer(renderThumbnails);
 sendingFile();
+

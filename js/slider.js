@@ -1,4 +1,4 @@
-import { imgUploadPrewiev } from './upload-form';
+import { imgUploadPreview } from './upload-form';
 import { EffectSettings } from './const';
 
 export const sliderContainer = document.querySelector('.img-upload__effect-level');
@@ -31,15 +31,15 @@ const applyEffect = (minRange, maxRange, stepRange, startRange, effectName) => {
     const effectValue = values; // получаем текущее значение слайдера
     switch (effectName) {
       case 'blur':
-        imgUploadPrewiev.style.filter = `${effectName}(${effectValue}px)`; // применяем эффект фильтрации (фобос)
+        imgUploadPreview.style.filter = `${effectName}(${effectValue}px)`; // применяем эффект фильтрации (фобос)
         sliderElementValue.value = parseFloat(effectValue, 1); // записываем новое значение в скрытое поле
         break;
       case 'invert':
-        imgUploadPrewiev.style.filter = `${effectName}(${effectValue})`; // применяем эффект фильтрации (марвин)
+        imgUploadPreview.style.filter = `${effectName}(${effectValue})`; // применяем эффект фильтрации (марвин)
         sliderElementValue.value = effectValue * 100; // записываем новое значение в скрытое поле
         break;
       default:
-        imgUploadPrewiev.style.filter = `${effectName}(${effectValue})`; // применяем эффект фильтрации (хром, сепия, зной)
+        imgUploadPreview.style.filter = `${effectName}(${effectValue})`; // применяем эффект фильтрации (хром, сепия, зной)
         sliderElementValue.value = parseFloat(effectValue, 1); // записываем новое значение в скрытое поле
     }
   });
@@ -48,7 +48,7 @@ const applyEffect = (minRange, maxRange, stepRange, startRange, effectName) => {
 // Сброс эффектов
 const noneEffect = () => {
   sliderElement.noUiSlider.off(); // удаляем предыдущий обработчик
-  imgUploadPrewiev.style.removeProperty('filter'); // удаляем стиль наложения эффекта
+  imgUploadPreview.style.removeProperty('filter'); // удаляем стиль наложения эффекта
   sliderElement.setAttribute('disabled', true); // блокируем слайдер
   sliderElementValue.value = 0; // сбрасываем значение поля уровень эффекта
 
@@ -80,10 +80,16 @@ const selectEffect = () => {
 };
 
 // Добавление обработчика выбора эффекта
-export const addChangeEffect = () => {
+const addChangeEffect = () => {
   effectElements.forEach((effectElement) => effectElement.addEventListener('change', selectEffect));
 };
 // Удаление обработчика выбора эффекта
-export const removeChangeEffect = () => {
+const removeChangeEffect = () => {
   effectElements.forEach((effectElement) => effectElement.removeEventListener('change', selectEffect));
+};
+
+export {
+  addChangeEffect,
+  removeChangeEffect,
+  noneEffect
 };

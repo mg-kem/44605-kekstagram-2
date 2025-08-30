@@ -1,8 +1,8 @@
 import { clearComments, renderComments } from './render-comments-full-photo.js';
 import { isEscapeKey } from './utils.js';
 
-export const bigPicture = document.querySelector('.big-picture'); // блок FullPhoto
-const bigPictureBtnClose = bigPicture.querySelector('.big-picture__cancel'); // крестик закрытия FullPhoto
+const bigPicture = document.querySelector('.big-picture'); // блок FullPhoto
+const buttonCloseBigPicture = bigPicture.querySelector('.big-picture__cancel'); // крестик закрытия FullPhoto
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img'); // Тег внутри блока FullPhoto
 const likesCount = bigPicture.querySelector('.likes-count'); // количество лайков
 const commentsCaption = bigPicture.querySelector('.social__caption'); // блок с описанием
@@ -23,19 +23,23 @@ function closeFullPhoto() {
   clearComments();
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  bigPictureBtnClose.removeEventListener('click', onClickBtnClose);
+  buttonCloseBigPicture.removeEventListener('click', onClickBtnClose);
   document.removeEventListener('keydown', onClickEscape);
 }
 
-export const openFullPhoto = (objectphoto) => {
+const openFullPhoto = (photo) => {
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  bigPictureBtnClose.addEventListener('click', onClickBtnClose);
+  buttonCloseBigPicture.addEventListener('click', onClickBtnClose);
   document.addEventListener('keydown', onClickEscape);
 
-  bigPictureImg.src = objectphoto.url;
-  likesCount.textContent = objectphoto.likes;
-  commentsCaption.textContent = objectphoto.description;
-  // рендерим комментарии
-  renderComments(objectphoto.comments);
+  bigPictureImg.src = photo.url;
+  likesCount.textContent = photo.likes;
+  commentsCaption.textContent = photo.description;
+  renderComments(photo.comments);
+};
+
+export {
+  openFullPhoto,
+  bigPicture
 };
