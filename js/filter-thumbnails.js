@@ -1,5 +1,5 @@
 import { renderThumbnails } from './rendering-thumbnails';
-import { Filter, SortFunc } from './const';
+import { Filter, SortFunc, MAX_COUNT_PHOTO_RANDOM_FILTER } from './const';
 import { debounce } from './utils';
 
 const filterThumbnails = document.querySelector('.img-filters'); // section
@@ -8,7 +8,7 @@ let originalPhotos = []; // обозначаю пустой массив
 
 const debounceRender = debounce(renderThumbnails);
 
-const onClickButtonFilter = (evt) => {
+const onFilterButtonClick = (evt) => {
   const currentButton = evt.target;
   const activeButton = document.querySelector('.img-filters__button--active');
 
@@ -18,29 +18,30 @@ const onClickButtonFilter = (evt) => {
     activeButton.classList.toggle('img-filters__button--active');
     currentButton.classList.toggle('img-filters__button--active');
   }
-  let filteredPhoto = [];
+  let filteredPhotos = [];
 
   switch (evt.target.id) {
     case Filter.RANDOM:
-      filteredPhoto = originalPhotos.sort(SortFunc.RANDOM).slice(0, 10);
+      filteredPhotos = originalPhotos.toSorted(SortFunc.RANDOM).slice(0, MAX_COUNT_PHOTO_RANDOM_FILTER);
       break;
     case Filter.DISCUSSED:
-      filteredPhoto = originalPhotos.sort(SortFunc.DISCUSSED);
+      filteredPhotos = originalPhotos.toSorted(SortFunc.DISCUSSED);
       break;
     case Filter.DEFAULT:
-      filteredPhoto = originalPhotos;
+      filteredPhotos = originalPhotos;
       break;
   }
-  debounceRender(filteredPhoto);
+  debounceRender(filteredPhotos);
 };
 
-export const showFilterObject = (data) => {
+const showFilterObject = (data) => {
   if (data) {
     originalPhotos = data;
     filterThumbnails.classList.remove('img-filters--inactive');
     filterButtons.forEach((filterButton) => {
-      filterButton.addEventListener('click', onClickButtonFilter);
+      filterButton.addEventListener('click', onFilterButtonClick);
     });
   }
 };
 
+export { showFilterObject };

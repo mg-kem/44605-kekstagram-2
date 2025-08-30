@@ -1,6 +1,7 @@
 import { BASE_URL, Route } from './const';
 import { showFilterObject } from './filter-thumbnails';
 import { showMessage } from './show-message-fetch';
+
 let errorName = '';
 
 const getDataFromServer = (onSuccess) => {

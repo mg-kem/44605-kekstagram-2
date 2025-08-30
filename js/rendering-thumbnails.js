@@ -1,15 +1,15 @@
 import { openFullPhoto } from './rendering-full-photo';
 
-// Нахожу шаблон для отрисовки миниатюр
 const pictureTemplate = document
   .querySelector('#picture')
   .content.querySelector('.picture');
-
-// Находим место, куда будем вставлять миниатюры
 const placeInsertThumbnail = document.querySelector('.pictures');
 
-//создаем фрагмент для временной отрисовки в оперативной памяти
 const pictureFragment = document.createDocumentFragment();
+
+const clearThumbnails = () => {
+  placeInsertThumbnail.querySelectorAll('a.picture').forEach((thumbnail) => thumbnail.remove());
+};
 
 const renderThumbnails = (photos) => {
   clearThumbnails();
@@ -29,9 +29,5 @@ const renderThumbnails = (photos) => {
 
   placeInsertThumbnail.append(pictureFragment);
 };
-
-function clearThumbnails() {
-  placeInsertThumbnail.querySelectorAll('a.picture').forEach((thumbnail) => thumbnail.remove());
-}
 
 export { renderThumbnails };

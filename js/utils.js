@@ -1,9 +1,16 @@
-export const isEscapeKey = (evt) => evt.key === 'Escape';
+import { TIMEOUT_DELAY_VALUE } from './const';
 
-export function debounce(callback, timeoutDelay = 500) {
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+function debounce(callback, timeoutDelay = TIMEOUT_DELAY_VALUE) {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 }
+
+export {
+  isEscapeKey,
+  debounce,
+};

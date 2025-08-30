@@ -7,12 +7,12 @@ const bigPictureImg = bigPicture.querySelector('.big-picture__img img'); // Те
 const likesCount = bigPicture.querySelector('.likes-count'); // количество лайков
 const commentsCaption = bigPicture.querySelector('.social__caption'); // блок с описанием
 
-const onClickBtnClose = (evt) => {
+const onCloseButtonClick = (evt) => {
   evt.preventDefault();
   closeFullPhoto();
 };
 
-const onClickEscape = (evt) => {
+const onEscapeKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeFullPhoto();
@@ -23,15 +23,15 @@ function closeFullPhoto() {
   clearComments();
   bigPicture.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  buttonCloseBigPicture.removeEventListener('click', onClickBtnClose);
-  document.removeEventListener('keydown', onClickEscape);
+  buttonCloseBigPicture.removeEventListener('click', onCloseButtonClick);
+  document.removeEventListener('keydown', onEscapeKeydown);
 }
 
 const openFullPhoto = (photo) => {
   bigPicture.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  buttonCloseBigPicture.addEventListener('click', onClickBtnClose);
-  document.addEventListener('keydown', onClickEscape);
+  buttonCloseBigPicture.addEventListener('click', onCloseButtonClick);
+  document.addEventListener('keydown', onEscapeKeydown);
 
   bigPictureImg.src = photo.url;
   likesCount.textContent = photo.likes;
@@ -41,5 +41,5 @@ const openFullPhoto = (photo) => {
 
 export {
   openFullPhoto,
-  bigPicture
+  bigPicture,
 };

@@ -28,29 +28,29 @@ const showMessage = (elem, errorName = null) => {
     }
   }
 
-  function onClickFunc(evt) {
+  const onWindowClick = (evt) => {
     evt.preventDefault();
     if (evt.type === 'click') {
       if (!document.querySelector(`.${elem}__inner`).contains(evt.target)) {
         removeMessage(elem);
-        document.removeEventListener('click', onClickFunc);
+        document.removeEventListener('click', onWindowClick);
       } else if (document.querySelector(`.${elem}__inner`).contains(evt.target) && document.querySelector(`.${elem}__button`).contains(evt.target)) {
         removeMessage(elem);
-        document.removeEventListener('click', onClickFunc);
+        document.removeEventListener('click', onWindowClick);
       }
     } else if (evt.type === 'keydown' && isEscapeKey(evt)) {
       removeMessage(elem);
-      document.removeEventListener('keydown', onClickFunc);
+      document.removeEventListener('keydown', onWindowClick);
     }
-  }
+  };
 
   document.body.append(message);
-  document.addEventListener('click', onClickFunc);
-  document.addEventListener('keydown', onClickFunc);
+  document.addEventListener('click', onWindowClick);
+  document.addEventListener('keydown', onWindowClick);
 
   if (elem === 'data-error') {
-    document.removeEventListener('click', onClickFunc);
-    document.removeEventListener('keydown', onClickFunc);
+    document.removeEventListener('click', onWindowClick);
+    document.removeEventListener('keydown', onWindowClick);
     setTimeout(() => {
       removeMessage(elem);
     }, TIMEOUT_DISPLAYED_ERROR_MESSAGE);

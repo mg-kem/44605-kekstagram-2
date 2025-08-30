@@ -5,7 +5,7 @@ const scaleControl = document.querySelector('.scale__control--value');
 
 let scale = 1;
 
-const onSmallerClick = () => {
+const onSmallButtonClick = () => {
   if (scale > SCALE_STEP) {
     scale -= SCALE_STEP;
     imgUploadPreview.style.transform = `scale(${scale})`;
@@ -13,7 +13,7 @@ const onSmallerClick = () => {
   }
 };
 
-const onBiggerClick = () => {
+const onBigButtonClick = () => {
   if (scale < 1) {
     scale += SCALE_STEP;
     imgUploadPreview.style.transform = `scale(${scale})`;
@@ -28,7 +28,7 @@ const scaleDefault = () => {
 };
 
 export {
-  onSmallerClick,
-  onBiggerClick,
+  onSmallButtonClick,
+  onBigButtonClick,
   scaleDefault
 };

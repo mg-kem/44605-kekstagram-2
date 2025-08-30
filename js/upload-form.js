@@ -2,7 +2,7 @@ import { sendDataToServer } from './api-fetch.js';
 import { pristine } from './validation.js';
 import { isEscapeKey } from './utils.js';
 import { addChangeEffect, removeChangeEffect, sliderContainer, noneEffect } from './slider.js';
-import { onBiggerClick, onSmallerClick, scaleDefault } from './scaling-picture.js';
+import { onBigButtonClick, onSmallButtonClick, scaleDefault } from './scaling-picture.js';
 
 const uploadForm = document.querySelector('.img-upload__form'); // Форма отправки изображения
 const uploadFileControl = uploadForm.querySelector('.img-upload__input'); // input для загрузки изображения
@@ -17,9 +17,9 @@ const imgUploadButton = uploadFileEditor.querySelector('.img-upload__submit'); /
 const buttonSmaller = uploadFileEditor.querySelector('.scale__control--smaller');
 const buttonBigger = uploadFileEditor.querySelector('.scale__control--bigger');
 
-const onClickBtnClose = () => closeWindowEditor();
+const onCloseButtonClick = () => closeWindowEditor();
 
-const onClickEscape = (evt) => {
+const onEscapeKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     if (document.activeElement === hashtagInput || document.activeElement === commentArea) {
       return;
@@ -31,10 +31,10 @@ const onClickEscape = (evt) => {
 function closeWindowEditor() {
   uploadFileEditor.classList.add('hidden');
   document.body.classList.remove('modal-open');
-  buttonCloseFileEditor.removeEventListener('click', onClickBtnClose);
-  document.removeEventListener('keydown', onClickEscape);
-  buttonSmaller.removeEventListener('click', onSmallerClick);
-  buttonBigger.removeEventListener('click', onBiggerClick);
+  buttonCloseFileEditor.removeEventListener('click', onCloseButtonClick);
+  document.removeEventListener('keydown', onEscapeKeydown);
+  buttonSmaller.removeEventListener('click', onSmallButtonClick);
+  buttonBigger.removeEventListener('click', onBigButtonClick);
   removeChangeEffect();
   noneEffect();
   imgUploadButton.disabled = false;
@@ -54,16 +54,16 @@ const uploadImage = (evt) => {
     });
   }
   addChangeEffect();
-  buttonSmaller.addEventListener('click', onSmallerClick);
-  buttonBigger.addEventListener('click', onBiggerClick);
+  buttonSmaller.addEventListener('click', onSmallButtonClick);
+  buttonBigger.addEventListener('click', onBigButtonClick);
   sliderContainer.classList.add('hidden');
   uploadFileEditor.classList.remove('hidden');
   document.body.classList.add('modal-open');
-  buttonCloseFileEditor.addEventListener('click', onClickBtnClose);
-  document.addEventListener('keydown', onClickEscape);
+  buttonCloseFileEditor.addEventListener('click', onCloseButtonClick);
+  document.addEventListener('keydown', onEscapeKeydown);
 };
 
-const sendingFile = () => {
+const openWindowEditor = () => {
   uploadFileControl.addEventListener('change', uploadImage);
 };
 
@@ -82,7 +82,7 @@ uploadForm.addEventListener('submit', (evt) => {
 });
 
 export {
-  sendingFile,
+  openWindowEditor,
   imgUploadPreview,
   uploadForm
 };
