@@ -33,14 +33,17 @@ const showMessage = (elem, errorName = null) => {
     if (evt.type === 'click') {
       if (!document.querySelector(`.${elem}__inner`).contains(evt.target)) {
         removeMessage(elem);
-        document.removeEventListener('click', onWindowClick);
+        document.addEventListener('click', onWindowClick);
+        document.addEventListener('keydown', onWindowClick);
       } else if (document.querySelector(`.${elem}__inner`).contains(evt.target) && document.querySelector(`.${elem}__button`).contains(evt.target)) {
         removeMessage(elem);
-        document.removeEventListener('click', onWindowClick);
+        document.addEventListener('click', onWindowClick);
+        document.addEventListener('keydown', onWindowClick);
       }
     } else if (evt.type === 'keydown' && isEscapeKey(evt)) {
       removeMessage(elem);
-      document.removeEventListener('keydown', onWindowClick);
+      document.addEventListener('click', onWindowClick);
+      document.addEventListener('keydown', onWindowClick);
     }
   };
 
