@@ -42,11 +42,6 @@ const setupMessageHandlers = (message, elem, messageContainer, closeButton) => {
     }
   }
 
-  // Добавляю обработчик на сам closeButton если он существует
-  if (closeButton) {
-    closeButton.addEventListener('click', closeMessage);
-  }
-
   document.addEventListener('click', onDocumentClick);
   document.addEventListener('keydown', onDocumentKeydown);
 

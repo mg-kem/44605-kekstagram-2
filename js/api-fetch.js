@@ -3,8 +3,6 @@ import { showFilterObject } from './filter-thumbnails';
 import { showMessage } from './show-messages';
 import { imgUploadButton } from './upload-form';
 
-// import { openMessage } from './message-fetch-test';
-
 let errorName = '';
 
 const getDataFromServer = (onSuccess) => {

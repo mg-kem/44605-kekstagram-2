@@ -5,7 +5,7 @@ const COUNT_STEP = 5; // render-comments-full-photo.js
 const SCALE_STEP = 0.25; // upload-from.js
 const MAX_LENGTH_DESCRIPTION = 140; // validation.js
 const MAX_COUNT_PHOTO_RANDOM_FILTER = 10; // filter-thumbmails.js
-const BASE_URL = 'https://31.javascript.1htmlacademy.pro/kekstagram'; // api-fetch.js
+const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram'; // api-fetch.js
 
 // Перечисления
 const Route = {
