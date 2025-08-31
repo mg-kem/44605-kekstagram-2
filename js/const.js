@@ -5,7 +5,7 @@ const COUNT_STEP = 5; // render-comments-full-photo.js
 const SCALE_STEP = 0.25; // upload-from.js
 const MAX_LENGTH_DESCRIPTION = 140; // validation.js
 const MAX_COUNT_PHOTO_RANDOM_FILTER = 10; // filter-thumbmails.js
-const BASE_URL = 'https://31.javascript.htmlacademy.pro/kekstagram'; // api-fetch.js
+const BASE_URL = 'https://31.javascript.1htmlacademy.pro/kekstagram'; // api-fetch.js
 
 // Перечисления
 const Route = {
@@ -17,11 +17,6 @@ const Filter = {
   DEFAULT: 'filter-default',
   RANDOM: 'filter-random',
   DISCUSSED: 'filter-discussed',
-}; // filter-thumbmails.js
-
-const SortFunc = {
-  RANDOM: () => 0.5 - Math.random(),
-  DISCUSSED: (a, b) => b.comments.length - a.comments.length,
 }; // filter-thumbmails.js
 
 const SliderValueDefault = {
@@ -47,6 +42,12 @@ const effectSettings = {
   heat: { min: 1, max: 3, step: 0.1, start: 3, filterType: 'brightness' }, // эффект "Зной"
 };// slider.js
 
+
+const sortType = {
+  sortRandom: () => 0.5 - Math.random(),
+  sortDiscussed: (a, b) => b.comments.length - a.comments.length,
+}; // filter-thumbmails.js
+
 export {
   TIMEOUT_DELAY_VALUE,
   BASE_URL,
@@ -57,7 +58,7 @@ export {
   MAX_LENGTH_DESCRIPTION,
   MAX_COUNT_PHOTO_RANDOM_FILTER,
   Filter,
-  SortFunc,
+  sortType,
   effectSettings,
   SliderValueDefault,
   HashtagValue,

@@ -1,5 +1,5 @@
 import { renderThumbnails } from './rendering-thumbnails';
-import { Filter, SortFunc, MAX_COUNT_PHOTO_RANDOM_FILTER } from './const';
+import { Filter, sortType, MAX_COUNT_PHOTO_RANDOM_FILTER } from './const';
 import { debounce } from './utils';
 
 const filterThumbnails = document.querySelector('.img-filters'); // section
@@ -22,10 +22,10 @@ const onFilterButtonClick = (evt) => {
 
   switch (evt.target.id) {
     case Filter.RANDOM:
-      filteredPhotos = originalPhotos.toSorted(SortFunc.RANDOM).slice(0, MAX_COUNT_PHOTO_RANDOM_FILTER);
+      filteredPhotos = originalPhotos.toSorted(sortType.sortRandom).slice(0, MAX_COUNT_PHOTO_RANDOM_FILTER);
       break;
     case Filter.DISCUSSED:
-      filteredPhotos = originalPhotos.toSorted(SortFunc.DISCUSSED);
+      filteredPhotos = originalPhotos.toSorted(sortType.sortDiscussed);
       break;
     case Filter.DEFAULT:
       filteredPhotos = originalPhotos;

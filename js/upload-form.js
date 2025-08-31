@@ -1,7 +1,7 @@
 import { sendDataToServer } from './api-fetch.js';
 import { pristine } from './validation.js';
 import { isEscapeKey } from './utils.js';
-import { addChangeEffect, removeChangeEffect, sliderContainer, noneEffect } from './slider.js';
+import { addChangeEffect, removeChangeEffect, sliderContainer, resetEffect } from './slider.js';
 import { onBigButtonClick, onSmallButtonClick, scaleDefault } from './scaling-picture.js';
 
 const uploadForm = document.querySelector('.img-upload__form'); // Форма отправки изображения
@@ -36,7 +36,9 @@ function closeWindowEditor() {
   buttonSmaller.removeEventListener('click', onSmallButtonClick);
   buttonBigger.removeEventListener('click', onBigButtonClick);
   removeChangeEffect();
-  noneEffect();
+  resetEffect();
+  pristine.reset();
+  uploadForm.reset();
   imgUploadButton.disabled = false;
   imgUploadButton.textContent = 'Опубликовать';
   uploadFileControl.value = '';
@@ -84,5 +86,6 @@ uploadForm.addEventListener('submit', (evt) => {
 export {
   openWindowEditor,
   imgUploadPreview,
-  uploadForm
+  uploadForm,
+  imgUploadButton,
 };

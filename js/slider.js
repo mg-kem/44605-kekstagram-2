@@ -4,7 +4,7 @@ import { effectSettings, SliderValueDefault } from './const';
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const slider = document.querySelector('.effect-level__slider');
 const sliderValue = document.querySelector('.effect-level__value');
-const effectElements = document.querySelectorAll('.effects__radio');
+const effects = document.querySelectorAll('.effects__radio');
 let settings = {};
 
 noUiSlider.create(slider, {
@@ -46,7 +46,7 @@ const applyEffect = (minRange, maxRange, stepRange, startRange, effectName) => {
 };
 
 // Сброс эффектов
-const noneEffect = () => {
+const resetEffect = () => {
   slider.noUiSlider.off(); // удаляем предыдущий обработчик
   imgUploadPreview.style.removeProperty('filter'); // удаляем стиль наложения эффекта
   slider.setAttribute('disabled', true); // блокируем слайдер
@@ -66,7 +66,7 @@ const selectEffect = () => {
   const effectValue = document.activeElement.value;
 
   switch (effectValue) {
-    case 'none': noneEffect();
+    case 'none': resetEffect();
       break;
     default:
       slider.removeAttribute('disabled');
@@ -79,18 +79,22 @@ const selectEffect = () => {
   }
 };
 
+const onButtonEffectClick = () => {
+  selectEffect();
+};
+
 // Добавление обработчика выбора эффекта
 const addChangeEffect = () => {
-  effectElements.forEach((effectElement) => effectElement.addEventListener('change', selectEffect));
+  effects.forEach((effect) => effect.addEventListener('change', onButtonEffectClick));
 };
 // Удаление обработчика выбора эффекта
 const removeChangeEffect = () => {
-  effectElements.forEach((effectElement) => effectElement.removeEventListener('change', selectEffect));
+  effects.forEach((effect) => effect.removeEventListener('change', onButtonEffectClick));
 };
 
 export {
   addChangeEffect,
   removeChangeEffect,
-  noneEffect,
+  resetEffect,
   sliderContainer,
 };

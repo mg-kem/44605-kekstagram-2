@@ -36,18 +36,22 @@ const renderNextComments = () => {
   currentCount += COUNT_STEP;
 };
 
+const onLoaderButtonClick = () => {
+  renderNextComments();
+};
+
 const clearComments = () => {
   currentCount = 0;
   socialCommentsNode.textContent = '';
   commentsLoaderButton.classList.remove('hidden');
-  commentsLoaderButton.removeEventListener('click', renderNextComments);
+  commentsLoaderButton.removeEventListener('click', onLoaderButtonClick);
 };
 
 const renderComments = (currentPhotoComments) => {
   comments = currentPhotoComments;
   renderNextComments();
 
-  commentsLoaderButton.addEventListener('click', renderNextComments);
+  commentsLoaderButton.addEventListener('click', onLoaderButtonClick);
 };
 
 export {
