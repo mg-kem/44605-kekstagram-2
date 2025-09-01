@@ -11,7 +11,7 @@ const removeMessage = (elem) => {
 const createMessageElement = (elem) => {
   const template = document.querySelector(`#${elem}`);
   const message = template.content.querySelector(`.${elem}`).cloneNode(true);
-  message.classList.add(`${elem}--visible`);
+  message.classList.add(`${elem}__message-modal`);
   return message;
 };
 

@@ -21,7 +21,7 @@ const onCloseButtonClick = () => closeWindowEditor();
 
 const onEscapeKeydown = (evt) => {
   if (isEscapeKey(evt)) {
-    if (document.activeElement === hashtagInput || document.activeElement === commentArea) {
+    if (document.activeElement === hashtagInput || document.activeElement === commentArea || document.querySelector('[class$=__message-modal]')) {
       return;
     }
     closeWindowEditor();

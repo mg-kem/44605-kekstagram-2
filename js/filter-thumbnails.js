@@ -1,6 +1,6 @@
 import { renderThumbnails } from './rendering-thumbnails';
-import { Filter, sortType, MAX_COUNT_PHOTO_RANDOM_FILTER } from './const';
-import { debounce } from './utils';
+import { Filter, MAX_COUNT_PHOTO_RANDOM_FILTER } from './const';
+import { debounce, sortType } from './utils';
 
 const filterThumbnails = document.querySelector('.img-filters'); // section
 const filterButtons = filterThumbnails.querySelectorAll('.img-filters__button'); // кнопки внутри section

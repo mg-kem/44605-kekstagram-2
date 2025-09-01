@@ -10,7 +10,13 @@ function debounce(callback, timeoutDelay = TIMEOUT_DELAY_VALUE) {
   };
 }
 
+const sortType = {
+  sortRandom: () => 0.5 - Math.random(),
+  sortDiscussed: (a, b) => b.comments.length - a.comments.length,
+}; // filter-thumbmails.js
+
 export {
   isEscapeKey,
   debounce,
+  sortType,
 };
