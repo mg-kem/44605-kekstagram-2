@@ -61,9 +61,7 @@ const getErrorMessage = (errorName) => {
 
 const showMessage = (elem, errorName = null) => {
   const message = createMessageElement(elem);
-  if (!message) {
-    return;
-  }
+
   // Нахожу элементы внутри блока сообщения
   const messageTitle = message.querySelector(`.${elem}__title`);
   const messageContainer = message.querySelector(`.${elem}__inner`);
